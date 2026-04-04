@@ -19,7 +19,7 @@
   --teal-lt:   #4BA6ED;
   --teal-pale: #C2CFFF;
   --amber:     #E8873A;
-  --gap:       clamp(80px, 10vw, 140px);
+  --gap:       clamp(80px, 10vw, 80px);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
@@ -417,6 +417,10 @@ footer{background:var(--ink);padding:64px 5vw 36px;color:rgba(255,255,255,.45)}
     justify-content: center;
     gap: 8px;
   }
+  .microvascular-cascade{
+    gap: 1px !important;;
+    padding-left: 0px!important;
+  }
 }
 </style>
 </head>
@@ -654,7 +658,7 @@ footer{background:var(--ink);padding:64px 5vw 36px;color:rgba(255,255,255,.45)}
                 <span style="font-size:.8rem;font-weight:600;color:white">Peripheral neuropathy</span>
                 <span style="margin-left:auto;font-size:.7rem;color:rgba(255,255,255,.6)">appears first</span>
               </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding-left:16px;position:relative">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding-left:16px;position:relative" class="microvascular-cascade">
                 <div style="position:absolute;left:8px;top:-8px;width:1px;height:16px;background:var(--rule)"></div>
                 <div style="padding:7px 8px;background:var(--offwhite);border:1px solid var(--rule);border-radius:7px;text-align:center">
                   <div style="font-size:12px">👁</div>
