@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinical Publications and References | BeyondA1C</title>
+<meta name="description" content="Complete list of clinical publications, peer-reviewed studies, and practice guidelines supporting the science behind BeyondA1C and the Boston Diabetes Research Institute's findings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:       #0F1133;
+  --ink-mid:   #0C0066;
+  --muted:     #5A6480;
+  --rule:      #E4E8EE;
+  --offwhite:  #F4F6FB;
+  --white:     #FFFFFF;
+  --blue:      #3366FF;
+  --blue-lt:   #4BA6ED;
+  --blue-pale: #C2CFFF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Figtree,sans-serif;color:var(--ink);background:var(--offwhite);-webkit-font-smoothing:antialiased}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:68px;display:flex;align-items:center;padding:0 5vw;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.06);box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.nav-inner{max-width:1200px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;text-decoration:none}
+.nav-back{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:.2s}
+.nav-back:hover{color:var(--blue)}
+.nav-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+
+.hero{padding:calc(68px + 64px) 5vw 64px;background:var(--ink);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(51,102,255,.2) 0%,transparent 65%)}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:2}
+.hero-eyebrow{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(75,166,237,.9);margin-bottom:16px}
+.hero-hl{font-family:"Playfair Display",serif;font-size:clamp(2rem,4vw,3rem);color:white;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.52);line-height:1.8;font-weight:300;max-width:640px;margin-bottom:32px}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap;padding-top:28px;border-top:1px solid rgba(255,255,255,.08)}
+.hs-item{}
+.hs-val{font-family:"Playfair Display",serif;font-size:2rem;color:var(--blue-lt);line-height:1}
+.hs-label{font-size:.75rem;color:rgba(255,255,255,.38);margin-top:4px;letter-spacing:.04em;text-transform:uppercase}
+
+.toc-bar{background:white;border-bottom:1px solid var(--rule);position:sticky;top:68px;z-index:50;padding:0 5vw}
+.toc-inner{max-width:1200px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:12px 0}
+.toc-inner::-webkit-scrollbar{display:none}
+.toc-btn{white-space:nowrap;padding:8px 16px;border-radius:100px;font-size:.8rem;font-weight:600;text-decoration:none;color:var(--muted);border:1.5px solid var(--rule);transition:.2s;background:white;display:inline-flex;align-items:center;gap:6px}
+.toc-btn:hover{border-color:var(--blue);color:var(--blue)}
+
+.main{max-width:1200px;margin:0 auto;padding:48px 5vw 80px}
+
+.ref-section{margin-bottom:48px}
+.rs-header{display:flex;align-items:flex-start;gap:18px;margin-bottom:24px;padding:24px 28px;background:white;border-radius:16px;border:1px solid var(--rule)}
+.rs-icon{font-size:2rem;flex-shrink:0;margin-top:2px}
+.rs-title{font-family:"Playfair Display",serif;font-size:1.3rem;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.rs-desc{font-size:.875rem;color:var(--muted);line-height:1.7}
+
+.ref-list{display:flex;flex-direction:column;gap:10px}
+.ref-item{background:white;border:1px solid var(--rule);border-radius:12px;padding:18px 20px;display:flex;align-items:flex-start;gap:16px;transition:.2s}
+.ref-item:hover{border-color:var(--blue);box-shadow:0 4px 20px rgba(51,102,255,.08)}
+.ref-num{font-family:"Playfair Display",serif;font-size:1.1rem;color:var(--blue);line-height:1;min-width:28px;padding-top:2px;flex-shrink:0}
+.ref-body{flex:1;min-width:0}
+.ref-authors{font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:4px;letter-spacing:.02em}
+.ref-title a{font-size:.92rem;font-weight:600;color:var(--ink);text-decoration:none;line-height:1.45;display:block}
+.ref-title a:hover{color:var(--blue)}
+.ref-journal{font-size:.78rem;color:var(--muted);margin-top:4px;font-style:italic}
+.ref-link{white-space:nowrap;font-size:.78rem;font-weight:600;color:var(--blue);text-decoration:none;padding:6px 12px;border-radius:6px;border:1px solid var(--blue-pale);background:var(--blue-pale);transition:.2s;flex-shrink:0;align-self:center}
+.ref-link:hover{background:var(--blue);color:white;border-color:var(--blue)}
+
+.footer-bar{background:var(--ink);padding:36px 5vw 28px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.footer-copy{font-size:.78rem;color:rgba(255,255,255,.28)}
+.footer-links{display:flex;gap:18px}
+.footer-links a{font-size:.78rem;color:rgba(255,255,255,.3);text-decoration:none}
+.footer-links a:hover{color:white}
+
+@media(max-width:768px){
+  .hero-stats{gap:24px}
+  .rs-header{flex-direction:column;gap:10px}
+  .ref-item{flex-wrap:wrap}
+  .ref-link{align-self:flex-start;margin-top:4px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="data:image/png;base64,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AHIb7SHY8M4WgpNjmiKanfSMguho3k79N7pTNidnnlrXDKkJFvUtUvaMPZ06slHqTeDFKhSk95xWe4wbFZ7VYre2gs9vp6GlbxEcLA0E957z4nis5EWnOcpycpPLZkSSWEERF8noREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAf/Z" alt="BeyondA1C" style="height:34px;width:auto">
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      Back to main site
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Boston Diabetes Research Institute</span>
+    <h1 class="hero-hl">Clinical Publications and References</h1>
+    <p class="hero-sub">The science behind BeyondA1C draws on decades of peer-reviewed research across four areas: the limitations of A1C alone, the role of peripheral neuropathy as a sentinel marker, retinopathy screening evidence, and current standards of care.</p>
+    <div class="hero-stats">
+      <div class="hs-item"><div class="hs-val">55</div><div class="hs-label">Total References</div></div>
+      <div class="hs-item"><div class="hs-val">35+</div><div class="hs-label">DPNCheck Studies</div></div>
+      <div class="hs-item"><div class="hs-val">2M+</div><div class="hs-label">Patients in Evidence Base</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="toc-bar">
+  <div class="toc-inner">
+    <a href="#section-a1c" class="toc-btn">🔬 HbA1c and Neuropathy</a>
+    <a href="#section-dpn" class="toc-btn">🦶 BeyondA1C Evidence</a>
+    <a href="#section-retino" class="toc-btn">👁 Retinopathy Guidelines</a>
+    <a href="#section-ada" class="toc-btn">📋 ADA Standards of Care</a>
+  </div>
+</div>
+
+<div class="main">
+
+    <div class="ref-section" id="section-a1c">
+      <div class="rs-header">
+        <div class="rs-icon">🔬</div>
+        <div>
+          <div class="rs-title">HbA1c Limitations and Association with Peripheral Neuropathy</div>
+          <div class="rs-desc">These studies form the foundation of BDRI's first finding: that A1C alone has significant limitations as a standalone measure of diabetic complication risk, and that HbA1c variability and level are associated with neuropathy severity and progression.</div>
+        </div>
+      </div>
+      <div class="ref-list">
+        <div class="ref-item">
+          <div class="ref-num">1</div>
+          <div class="ref-body">
+            <div class="ref-authors">Su JB, et al. (2018)</div>
+            <div class="ref-title"><a href="https://cardiab.biomedcentral.com/articles/10.1186/s12933-018-0693-0" target="_blank" rel="noopener">HbA1c variability and diabetic peripheral neuropathy in type 2 diabetic patients.</a></div>
+            <div class="ref-journal">Cardiovasc Diabetol</div>
+          </div>
+          <a href="https://cardiab.biomedcentral.com/articles/10.1186/s12933-018-0693-0" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">2</div>
+          <div class="ref-body">
+            <div class="ref-authors">Lai YR, et al. (2019)</div>
+            <div class="ref-title"><a href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2019.00090/full" target="_blank" rel="noopener">HbA1C Variability Is Strongly Associated With the Severity of Peripheral Neuropathy.</a></div>
+            <div class="ref-journal">Front Neurosci</div>
+          </div>
+          <a href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2019.00090/full" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">3</div>
+          <div class="ref-body">
+            <div class="ref-authors">Zhang Y, et al. (2017)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/27396240/" target="_blank" rel="noopener">Lower eGFR and higher UACR predict diabetic peripheral neuropathy.</a></div>
+            <div class="ref-journal">J Diabetes Complications</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/27396240/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">4</div>
+          <div class="ref-body">
+            <div class="ref-authors">Bansal D, et al. (2006)</div>
+            <div class="ref-title"><a href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2019.00090/full" target="_blank" rel="noopener">A 1% HbA1c increment is associated with a 10–15% increase in diabetic peripheral neuropathy risk.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2019.00090/full" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">5</div>
+          <div class="ref-body">
+            <div class="ref-authors">Jin P, et al. (2016)</div>
+            <div class="ref-title"><a href="https://www.endocrine-abstracts.org/ea/0041/ea0041gp92" target="_blank" rel="noopener">Glycemic variability and microvascular complications in diabetes.</a></div>
+            <div class="ref-journal">Endocrine</div>
+          </div>
+          <a href="https://www.endocrine-abstracts.org/ea/0041/ea0041gp92" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">6</div>
+          <div class="ref-body">
+            <div class="ref-authors">Kilpatrick ES, et al. (2008)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/18650371/" target="_blank" rel="noopener">HbA1c variability and the risk of microvascular complications in type 1 diabetes.</a></div>
+            <div class="ref-journal">Diabet Med</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/18650371/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">7</div>
+          <div class="ref-body">
+            <div class="ref-authors">Perkins BA, et al. (2001)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/care/article/24/4/748/23422/Glycemic-Control-Is-Related-to-the-Morphological" target="_blank" rel="noopener">Glycemic control and the morphological severity of diabetic peripheral neuropathy.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://diabetesjournals.org/care/article/24/4/748/23422/Glycemic-Control-Is-Related-to-the-Morphological" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">8</div>
+          <div class="ref-body">
+            <div class="ref-authors">Ziegler D, et al. (2004)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/care/article/27/9/2178/22609/Oxidative-Stress-and-Antioxidant-Defense-in" target="_blank" rel="noopener">Diabetic neuropathy severity and oxidative stress.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://diabetesjournals.org/care/article/27/9/2178/22609/Oxidative-Stress-and-Antioxidant-Defense-in" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">9</div>
+          <div class="ref-body">
+            <div class="ref-authors">Lee WJ, et al. (2022)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/35023938/" target="_blank" rel="noopener">Association Between HbA1c Levels and Diabetic Peripheral Neuropathy.</a></div>
+            <div class="ref-journal">Diabetes Metab Syndr Obes</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/35023938/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">10</div>
+          <div class="ref-body">
+            <div class="ref-authors">Xu Y, et al. (2018)</div>
+            <div class="ref-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9056490/" target="_blank" rel="noopener">Sustained HbA1c below 7% reduces diabetes complications.</a></div>
+            <div class="ref-journal">Diabetes Ther</div>
+          </div>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9056490/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">11</div>
+          <div class="ref-body">
+            <div class="ref-authors">Liu X, et al. (2019)</div>
+            <div class="ref-title"><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0212574" target="_blank" rel="noopener">Risk factors for diabetic peripheral neuropathy: a meta-analysis.</a></div>
+            <div class="ref-journal">PLoS One</div>
+          </div>
+          <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0212574" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">12</div>
+          <div class="ref-body">
+            <div class="ref-authors">Lee SH, et al. (2016)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/27152276/" target="_blank" rel="noopener">Correlation Between HbA1c and Neuropathy Disability Score.</a></div>
+            <div class="ref-journal">Ann Rehabil Med</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/27152276/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">13</div>
+          <div class="ref-body">
+            <div class="ref-authors">Global Research Online (2023)</div>
+            <div class="ref-title"><a href="https://globalresearchonline.net/ijpsrr/v84-12/03.pdf" target="_blank" rel="noopener">Correlation Study between Diabetic Peripheral Neuropathy and HbA1c.</a></div>
+            <div class="ref-journal">Int J Pharm Sci Res Rev</div>
+          </div>
+          <a href="https://globalresearchonline.net/ijpsrr/v84-12/03.pdf" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">14</div>
+          <div class="ref-body">
+            <div class="ref-authors">Badiu C, et al. (2021)</div>
+            <div class="ref-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8006047/" target="_blank" rel="noopener">HbA1c as a Biomarker for Diabetic Foot Neuropathy.</a></div>
+            <div class="ref-journal">Diseases</div>
+          </div>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8006047/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">15</div>
+          <div class="ref-body">
+            <div class="ref-authors">Gomes R, et al. (2020)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/33042229/" target="_blank" rel="noopener">HbA1c variability and diabetic peripheral neuropathy in type 1 diabetes.</a></div>
+            <div class="ref-journal">Diabetol Metab Syndr</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/33042229/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">16</div>
+          <div class="ref-body">
+            <div class="ref-authors">Vinik AI, et al. (2004)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/24286949/" target="_blank" rel="noopener">Diabetic neuropathies.</a></div>
+            <div class="ref-journal">Endocrinol Metab Clin North Am</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/24286949/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">17</div>
+          <div class="ref-body">
+            <div class="ref-authors">Dyck PJ, et al. (1999)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/10480512/" target="_blank" rel="noopener">Risk factors for the severity of diabetic polyneuropathy.</a></div>
+            <div class="ref-journal">Diabetes</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/10480512/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">18</div>
+          <div class="ref-body">
+            <div class="ref-authors">Tesfaye S, et al. (2005)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/20876709/" target="_blank" rel="noopener">Risk factors for diabetic peripheral neuropathy.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/20876709/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+      </div>
+    </div>
+    <div class="ref-section" id="section-dpn">
+      <div class="rs-header">
+        <div class="rs-icon">🦶</div>
+        <div>
+          <div class="rs-title">BeyondA1C and DPNCheck Clinical Evidence</div>
+          <div class="rs-desc">Peer-reviewed studies validating the device that powers BeyondA1C, including diagnostic accuracy, severity staging, and predictive value for mortality and microvascular complications.</div>
+        </div>
+      </div>
+      <div class="ref-list">
+        <div class="ref-item">
+          <div class="ref-num">19</div>
+          <div class="ref-body">
+            <div class="ref-authors">Sloan GP, et al. (2023)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/diabetes/article/72/Supplement_1/489-P/150545/489-P-Abnormal-Combined-Point-of-Care-Device-DPN" target="_blank" rel="noopener">DPNCheck combined with SUDOSCAN predicts all-cause mortality in people with diabetes.</a></div>
+            <div class="ref-journal">Diabetes</div>
+          </div>
+          <a href="https://diabetesjournals.org/diabetes/article/72/Supplement_1/489-P/150545/489-P-Abnormal-Combined-Point-of-Care-Device-DPN" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">20</div>
+          <div class="ref-body">
+            <div class="ref-authors">Pleven S, et al. (2023)</div>
+            <div class="ref-title"><a href="https://www.nature.com/articles/s41598-023-45841-6" target="_blank" rel="noopener">Reliability of DPNCheck for peripheral neuropathy screening.</a></div>
+            <div class="ref-journal">Sci Rep</div>
+          </div>
+          <a href="https://www.nature.com/articles/s41598-023-45841-6" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">21</div>
+          <div class="ref-body">
+            <div class="ref-authors">Otsuki R, et al. (2021)</div>
+            <div class="ref-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8015817/" target="_blank" rel="noopener">DPNCheck predicts severity of diabetic peripheral neuropathy.</a></div>
+            <div class="ref-journal">J Diabetes Investig</div>
+          </div>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8015817/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">22</div>
+          <div class="ref-body">
+            <div class="ref-authors">DPNCheck Publications (2025)</div>
+            <div class="ref-title"><a href="https://dpncheck.com/clinical-publications/" target="_blank" rel="noopener">Complete list of peer-reviewed studies validating DPNCheck.</a></div>
+            <div class="ref-journal">DPNCheck.com</div>
+          </div>
+          <a href="https://dpncheck.com/clinical-publications/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">23</div>
+          <div class="ref-body">
+            <div class="ref-authors">Hirano T, et al. (2018)</div>
+            <div class="ref-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6123044/" target="_blank" rel="noopener">Normal reference limits for DPNCheck nerve conduction measures.</a></div>
+            <div class="ref-journal">J Diabetes Investig</div>
+          </div>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6123044/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">24</div>
+          <div class="ref-body">
+            <div class="ref-authors">Goonoo MS, et al. (2024)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/diabetes/article/73/Supplement_1/11-OR/155503/11-OR-Combined-DPNCheck-and-SUDOSCAN-as-a" target="_blank" rel="noopener">Combined DPNCheck and SUDOSCAN as a comprehensive screening tool.</a></div>
+            <div class="ref-journal">Diabetes</div>
+          </div>
+          <a href="https://diabetesjournals.org/diabetes/article/73/Supplement_1/11-OR/155503/11-OR-Combined-DPNCheck-and-SUDOSCAN-as-a" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">25</div>
+          <div class="ref-body">
+            <div class="ref-authors">Richard JL, et al. (2015)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/26759561/" target="_blank" rel="noopener">NC-stat DPNCheck use in pharmacy settings.</a></div>
+            <div class="ref-journal">Can Pharm J</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/26759561/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">26</div>
+          <div class="ref-body">
+            <div class="ref-authors">Papanas N, et al. (2017)</div>
+            <div class="ref-title"><a href="https://www.tandfonline.com/doi/full/10.1080/17434440.2017.1305266" target="_blank" rel="noopener">Grading of diabetic peripheral neuropathy severity using DPNCheck.</a></div>
+            <div class="ref-journal">Prim Care Diabetes</div>
+          </div>
+          <a href="https://www.tandfonline.com/doi/full/10.1080/17434440.2017.1305266" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">27</div>
+          <div class="ref-body">
+            <div class="ref-authors">Pleven S, et al. (2024)</div>
+            <div class="ref-title"><a href="https://journals.sagepub.com/doi/10.1177/15347346241295461" target="_blank" rel="noopener">Comparison of DPN screening modalities including DPNCheck.</a></div>
+            <div class="ref-journal">Int J Low Extrem Wounds</div>
+          </div>
+          <a href="https://journals.sagepub.com/doi/10.1177/15347346241295461" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">28</div>
+          <div class="ref-body">
+            <div class="ref-authors">Selvarajah D, et al. (2023)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/diabetes/article/72/Supplement_1/489-P/150545/489-P-Abnormal-Combined-Point-of-Care-Device-DPN" target="_blank" rel="noopener">Diabetic peripheral neuropathy screening predicts mortality.</a></div>
+            <div class="ref-journal">Diabetes UK Poster</div>
+          </div>
+          <a href="https://diabetesjournals.org/diabetes/article/72/Supplement_1/489-P/150545/489-P-Abnormal-Combined-Point-of-Care-Device-DPN" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+      </div>
+    </div>
+    <div class="ref-section" id="section-retino">
+      <div class="rs-header">
+        <div class="rs-icon">👁</div>
+        <div>
+          <div class="rs-title">Diabetic Retinopathy: Screening Guidelines and Risk Factors</div>
+          <div class="rs-desc">Clinical guidelines and research supporting BDRI's second finding: that peripheral neuropathy serves as a sentinel marker for retinopathy risk and progression.</div>
+        </div>
+      </div>
+      <div class="ref-list">
+        <div class="ref-item">
+          <div class="ref-num">29</div>
+          <div class="ref-body">
+            <div class="ref-authors">American Diabetes Association (2022)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/care/article/45/Supplement_1/S185/138917/12-Retinopathy-Neuropathy-and-Foot-Care-Standards" target="_blank" rel="noopener">Retinopathy, Neuropathy, and Foot Care. Standards of Medical Care in Diabetes.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://diabetesjournals.org/care/article/45/Supplement_1/S185/138917/12-Retinopathy-Neuropathy-and-Foot-Care-Standards" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">30</div>
+          <div class="ref-body">
+            <div class="ref-authors">American Diabetes Association (2025)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/care/article/48/Supplement_1/S252/157552/12-Retinopathy-Neuropathy-and-Foot-Care-Standards" target="_blank" rel="noopener">Retinopathy, Neuropathy, and Foot Care. Standards of Medical Care in Diabetes.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://diabetesjournals.org/care/article/48/Supplement_1/S252/157552/12-Retinopathy-Neuropathy-and-Foot-Care-Standards" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">31</div>
+          <div class="ref-body">
+            <div class="ref-authors">Diabetes Canada (2023)</div>
+            <div class="ref-title"><a href="https://guidelines.diabetes.ca/cpg/chapter30" target="_blank" rel="noopener">Clinical Practice Guidelines: Retinopathy.</a></div>
+            <div class="ref-journal">Diabetes Canada Guidelines</div>
+          </div>
+          <a href="https://guidelines.diabetes.ca/cpg/chapter30" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">32</div>
+          <div class="ref-body">
+            <div class="ref-authors">Cleveland Clinic (2025)</div>
+            <div class="ref-title"><a href="https://consultqd.clevelandclinic.org/diabetic-retinopathy-screening-prevention-and-treatment" target="_blank" rel="noopener">Diabetic Retinopathy: Screening, Prevention, and Treatment.</a></div>
+            <div class="ref-journal">Cleveland Clinic Consult QD</div>
+          </div>
+          <a href="https://consultqd.clevelandclinic.org/diabetic-retinopathy-screening-prevention-and-treatment" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">33</div>
+          <div class="ref-body">
+            <div class="ref-authors">Al Malki MI, et al. (2021)</div>
+            <div class="ref-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7863112/" target="_blank" rel="noopener">HbA1c and diabetic retinopathy severity.</a></div>
+            <div class="ref-journal">Cureus</div>
+          </div>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7863112/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">34</div>
+          <div class="ref-body">
+            <div class="ref-authors">Cheema A, et al. (2023)</div>
+            <div class="ref-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10686625/" target="_blank" rel="noopener">Prevalence and risk factors of retinopathy in type 1 diabetes.</a></div>
+            <div class="ref-journal">J Clin Med</div>
+          </div>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10686625/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">35</div>
+          <div class="ref-body">
+            <div class="ref-authors">Medscape (2024)</div>
+            <div class="ref-title"><a href="https://emedicine.medscape.com/article/1225122-guidelines" target="_blank" rel="noopener">Diabetic Retinopathy: Practice Guidelines.</a></div>
+            <div class="ref-journal">Medscape</div>
+          </div>
+          <a href="https://emedicine.medscape.com/article/1225122-guidelines" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">36</div>
+          <div class="ref-body">
+            <div class="ref-authors">NHMRC (2008)</div>
+            <div class="ref-title"><a href="https://www.tga.gov.au/sites/default/files/foi-332-1112-21.pdf" target="_blank" rel="noopener">Guidelines for the Management of Diabetic Retinopathy.</a></div>
+            <div class="ref-journal">NHMRC</div>
+          </div>
+          <a href="https://www.tga.gov.au/sites/default/files/foi-332-1112-21.pdf" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">37</div>
+          <div class="ref-body">
+            <div class="ref-authors">Raman R, et al. (2013)</div>
+            <div class="ref-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3574265/" target="_blank" rel="noopener">Royal College of Ophthalmologists Guidelines for Diabetic Retinopathy.</a></div>
+            <div class="ref-journal">Eye</div>
+          </div>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3574265/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">38</div>
+          <div class="ref-body">
+            <div class="ref-authors">Romero-Aroca P, et al. (2017)</div>
+            <div class="ref-title"><a href="https://www.researchgate.net/profile/Pedro-Romero-Aroca/publication/316929271_Diabetic_Macular_Edema_Pathophysiology_Vasogenic_versus_Inflammatory/links/5913e2e80f7e9b0a1e3f5b1e/Diabetic-Macular-Edema-Pathophysiology-Vasogenic-versus-Inflammatory.pdf" target="_blank" rel="noopener">Update on the diagnosis and treatment of diabetic retinopathy.</a></div>
+            <div class="ref-journal">J Ophthalmol</div>
+          </div>
+          <a href="https://www.researchgate.net/profile/Pedro-Romero-Aroca/publication/316929271_Diabetic_Macular_Edema_Pathophysiology_Vasogenic_versus_Inflammatory/links/5913e2e80f7e9b0a1e3f5b1e/Diabetic-Macular-Edema-Pathophysiology-Vasogenic-versus-Inflammatory.pdf" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">39</div>
+          <div class="ref-body">
+            <div class="ref-authors">RANZCO (2016)</div>
+            <div class="ref-title"><a href="https://ranzco.edu/wp-content/uploads/2018/11/RANZCO-Referral-pathway-for-DR-2016.pdf" target="_blank" rel="noopener">Screening Pathway for Diabetic Retinopathy.</a></div>
+            <div class="ref-journal">RANZCO</div>
+          </div>
+          <a href="https://ranzco.edu/wp-content/uploads/2018/11/RANZCO-Referral-pathway-for-DR-2016.pdf" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">40</div>
+          <div class="ref-body">
+            <div class="ref-authors">WHO (2021)</div>
+            <div class="ref-title"><a href="https://apps.who.int/iris/bitstream/handle/10665/336660/9789289055321-eng.pdf" target="_blank" rel="noopener">Diabetic Retinopathy Screening Guide.</a></div>
+            <div class="ref-journal">World Health Organization</div>
+          </div>
+          <a href="https://apps.who.int/iris/bitstream/handle/10665/336660/9789289055321-eng.pdf" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">41</div>
+          <div class="ref-body">
+            <div class="ref-authors">Aiello LP, et al. (2017)</div>
+            <div class="ref-title"><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1612836" target="_blank" rel="noopener">Frequency of diabetic retinopathy screening intervals.</a></div>
+            <div class="ref-journal">NEJM</div>
+          </div>
+          <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1612836" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">42</div>
+          <div class="ref-body">
+            <div class="ref-authors">Aiello LP (2017)</div>
+            <div class="ref-title"><a href="https://professional.diabetes.org/standards-of-care/key-statements-and-reports" target="_blank" rel="noopener">ADA Position on Diabetic Retinopathy.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://professional.diabetes.org/standards-of-care/key-statements-and-reports" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">43</div>
+          <div class="ref-body">
+            <div class="ref-authors">Guideline Central (2025)</div>
+            <div class="ref-title"><a href="https://www.guidelinecentral.com/insights/nov-2025-interventionsdiabetesadults-guideline-sidebyside/" target="_blank" rel="noopener">Comparing Diabetic Retinopathy Guidelines.</a></div>
+            <div class="ref-journal">Guideline Central</div>
+          </div>
+          <a href="https://www.guidelinecentral.com/insights/nov-2025-interventionsdiabetesadults-guideline-sidebyside/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+      </div>
+    </div>
+    <div class="ref-section" id="section-ada">
+      <div class="rs-header">
+        <div class="rs-icon">📋</div>
+        <div>
+          <div class="rs-title">ADA Standards of Care and Clinical Practice Guidelines</div>
+          <div class="rs-desc">Current and recent guidelines from the American Diabetes Association and related organizations, providing the clinical context for BeyondA1C's screening approach.</div>
+        </div>
+      </div>
+      <div class="ref-list">
+        <div class="ref-item">
+          <div class="ref-num">44</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2025)</div>
+            <div class="ref-title"><a href="https://professional.diabetes.org/standards-of-care" target="_blank" rel="noopener">Standards of Medical Care in Diabetes.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://professional.diabetes.org/standards-of-care" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">45</div>
+          <div class="ref-body">
+            <div class="ref-authors">Guideline Central (2025)</div>
+            <div class="ref-title"><a href="https://www.guidelinecentral.com/guideline/14119/" target="_blank" rel="noopener">2025 ADA Standards of Care Summary.</a></div>
+            <div class="ref-journal">Guideline Central</div>
+          </div>
+          <a href="https://www.guidelinecentral.com/guideline/14119/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">46</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2023)</div>
+            <div class="ref-title"><a href="https://professional.diabetes.org/standards-of-care" target="_blank" rel="noopener">Abridged Standards of Medical Care in Diabetes for Primary Care.</a></div>
+            <div class="ref-journal">Clin Diabetes</div>
+          </div>
+          <a href="https://professional.diabetes.org/standards-of-care" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">47</div>
+          <div class="ref-body">
+            <div class="ref-authors">WA Family Physicians (2025)</div>
+            <div class="ref-title"><a href="https://www.wafp.org/assets/files/2025_ADA_Updates_All_Sections_95.pdf" target="_blank" rel="noopener">2025 ADA Standards of Care: Key Updates.</a></div>
+            <div class="ref-journal">WAFP</div>
+          </div>
+          <a href="https://www.wafp.org/assets/files/2025_ADA_Updates_All_Sections_95.pdf" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">48</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2025)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/care/article/48/Supplement_1/S6/157564/Summary-of-Revisions-Standards-of-Care-in-Diabetes" target="_blank" rel="noopener">Summary of Revisions: Standards of Medical Care in Diabetes.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://diabetesjournals.org/care/article/48/Supplement_1/S6/157564/Summary-of-Revisions-Standards-of-Care-in-Diabetes" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">49</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2024)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/care/article/47/Supplement_1/S20/153954/2-Diagnosis-and-Classification-of-Diabetes" target="_blank" rel="noopener">Diagnosis and Classification of Diabetes.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://diabetesjournals.org/care/article/47/Supplement_1/S20/153954/2-Diagnosis-and-Classification-of-Diabetes" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">50</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2023)</div>
+            <div class="ref-title"><a href="https://diabetes.org/newsroom/american-diabetes-association-2023-standards-care-diabetes-guide-for-prevention-diagnosis-treatment-people-living-with-diabetes" target="_blank" rel="noopener">2023 Standards of Care in Diabetes: Guide for Prevention, Diagnosis and Treatment.</a></div>
+            <div class="ref-journal">ADA Newsroom</div>
+          </div>
+          <a href="https://diabetes.org/newsroom/american-diabetes-association-2023-standards-care-diabetes-guide-for-prevention-diagnosis-treatment-people-living-with-diabetes" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">51</div>
+          <div class="ref-body">
+            <div class="ref-authors">NIDDK (2025)</div>
+            <div class="ref-title"><a href="https://www.niddk.nih.gov/health-information/professionals/diabetes-discoveries-practice/ada-2022-standards-of-medical-care-in-diabetes-update" target="_blank" rel="noopener">ADA 2022 Standards of Medical Care Update.</a></div>
+            <div class="ref-journal">NIDDK</div>
+          </div>
+          <a href="https://www.niddk.nih.gov/health-information/professionals/diabetes-discoveries-practice/ada-2022-standards-of-medical-care-in-diabetes-update" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">52</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2025)</div>
+            <div class="ref-title"><a href="https://professional.diabetes.org/standards-of-care" target="_blank" rel="noopener">Clinical Practice Guidelines.</a></div>
+            <div class="ref-journal">ADA Professional</div>
+          </div>
+          <a href="https://professional.diabetes.org/standards-of-care" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">53</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2024)</div>
+            <div class="ref-title"><a href="https://diabetesjournals.org/care/article/47/Supplement_1/S219/153938/11-Chronic-Kidney-Disease-and-Risk-Management" target="_blank" rel="noopener">Chronic Kidney Disease and Risk Management.</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://diabetesjournals.org/care/article/47/Supplement_1/S219/153938/11-Chronic-Kidney-Disease-and-Risk-Management" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">54</div>
+          <div class="ref-body">
+            <div class="ref-authors">ADA (2024)</div>
+            <div class="ref-title"><a href="https://pubmed.ncbi.nlm.nih.gov/38078589/" target="_blank" rel="noopener">Diagnosis and Classification of Diabetes (PubMed).</a></div>
+            <div class="ref-journal">Diabetes Care</div>
+          </div>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/38078589/" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+        <div class="ref-item">
+          <div class="ref-num">55</div>
+          <div class="ref-body">
+            <div class="ref-authors">NIDDK (2025)</div>
+            <div class="ref-title"><a href="https://www.niddk.nih.gov/health-information/professionals/diabetes-discoveries-practice/ada-2024-standards-of-care" target="_blank" rel="noopener">What's New in the 2024 ADA Standards of Care.</a></div>
+            <div class="ref-journal">NIDDK</div>
+          </div>
+          <a href="https://www.niddk.nih.gov/health-information/professionals/diabetes-discoveries-practice/ada-2024-standards-of-care" target="_blank" rel="noopener" class="ref-link">View →</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="footer-bar">
+  <div class="footer-inner">
+    <div class="footer-copy">© 2025 BeyondA1C, Boston Diabetes Research Institute, a Division of MedicaMetrix. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="index.html">Main Site</a>
+      <a href="index.html#evidence">Key Studies</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
