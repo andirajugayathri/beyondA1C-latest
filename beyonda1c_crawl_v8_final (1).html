@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeyondA1C — Complete Website Crawl</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:    #0A1628;
+    --teal:    #0D9488;
+    --teal-l:  #5EEAD4;
+    --amber:   #F59E0B;
+    --red:     #DC2626;
+    --green:   #16A34A;
+    --blue:    #1D4ED8;
+    --cream:   #F8F7F4;
+    --white:   #FFFFFF;
+    --ink:     #1A2530;
+    --muted:   #64748B;
+    --rule:    #E2E8F0;
+    --card-bg: #FFFFFF;
+  }
+  body { font-family: 'Segoe UI', system-ui, Arial, sans-serif; background: #F1F5F9; color: var(--ink); font-size: 14px; line-height: 1.6; }
+
+  /* ── NAV ── */
+  .site-nav { background: var(--navy); padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 16px rgba(0,0,0,0.35); }
+  .nav-brand { font-size: 20px; font-weight: 700; color: white; letter-spacing: -0.03em; }
+  .nav-brand span { color: var(--teal-l); }
+  .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 11px; padding: 6px 12px; border-radius: 4px; transition: all 0.2s; }
+  .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.12); color: white; }
+
+  /* ── PAGE TABS ── */
+  .page-tabs { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.07); padding: 0 40px; display: flex; overflow-x: auto; }
+  .page-tab { color: rgba(255,255,255,0.45); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 20px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
+  .page-tab:hover { color: rgba(255,255,255,0.7); }
+  .page-tab.active { color: var(--teal-l); border-bottom-color: var(--teal-l); }
+
+  /* ── PAGE SECTIONS ── */
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  /* ── HERO ── */
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, #0F2847 60%, #0A3050 100%); padding: 56px 40px 48px; border-bottom: 3px solid var(--teal); }
+  .hero .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal-l); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .hero .eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--teal); }
+  .hero h1 { font-size: 40px; font-weight: 300; color: white; line-height: 1.1; margin-bottom: 14px; letter-spacing: -0.02em; }
+  .hero h1 em { color: var(--teal-l); font-style: italic; }
+  .hero p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 700px; line-height: 1.7; }
+
+  /* ── BODY ── */
+  .content { max-width: 1100px; margin: 0 auto; padding: 40px; }
+
+  /* ── STAT ROW ── */
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 28px 0; }
+  .stat-box { background: var(--navy); padding: 22px 18px; text-align: center; border-radius: 6px; }
+  .stat-num { font-size: 30px; font-weight: 700; color: var(--teal-l); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+  /* ── SCORE SCALE ── */
+  .score-scale { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 20px 0; }
+  .score-tier { padding: 12px 10px; border-radius: 4px; text-align: center; }
+  .score-tier .range { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .score-tier .label { font-size: 11px; font-weight: 600; }
+  .tier-low    { background: #DCFCE7; color: #15803D; }
+  .tier-mod    { background: #FEF9C3; color: #854D0E; }
+  .tier-high   { background: #FED7AA; color: #C2410C; }
+  .tier-vhigh  { background: #FEE2E2; color: #B91C1C; }
+
+  /* ── FINDINGS ── */
+  .finding-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 24px 0; }
+  .finding-card { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 24px; border-top: 3px solid var(--teal); }
+  .finding-card .num { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+  .finding-card h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+  .finding-card p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+
+  /* ── COMPARISON TABLE ── */
+  .comp-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin: 24px 0; }
+  .comp-table th { background: var(--navy); color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; text-align: left; }
+  .comp-table td { font-size: 13px; color: var(--ink); padding: 11px 16px; border-bottom: 1px solid var(--rule); }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-table td:first-child { font-weight: 600; color: var(--navy); }
+  .check-yes { color: var(--green); font-weight: 700; }
+  .check-no  { color: var(--red);   font-weight: 700; }
+  .check-lim { color: var(--amber); font-size: 11px; }
+
+  /* ── STEPS ── */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0; counter-reset: step; }
+  .step { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 20px 20px 20px 60px; position: relative; counter-increment: step; }
+  .step::before { content: counter(step); position: absolute; left: 16px; top: 20px; width: 30px; height: 30px; background: var(--teal); color: white; border-radius: 50%; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .step .icon { font-size: 22px; margin-bottom: 8px; }
+  .step h4 { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .step p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .step .badge { font-size: 10px; color: var(--teal); font-weight: 600; margin-top: 6px; }
+
+  /* ── COMPLICATIONS ── */
+  .complication-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 24px 0; }
+  .complication-card { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 22px; }
+  .complication-card .icon { font-size: 32px; margin-bottom: 10px; }
+  .complication-card h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .complication-card p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+  .complication-card .stat-inline { font-size: 22px; font-weight: 700; color: var(--teal); margin: 10px 0 4px; }
+  .complication-card .stat-note { font-size: 10px; color: var(--muted); font-style: italic; }
+
+  /* ── FAQ ── */
+  .faq-list { margin: 20px 0; }
+  .faq-item { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 10px; }
+  .faq-q { font-size: 13px; font-weight: 600; color: var(--navy); padding: 16px 20px; }
+  .faq-a { font-size: 12px; color: var(--muted); padding: 0 20px 16px; line-height: 1.7; }
+
+  /* ── PUB LIST ── */
+  .pub-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); padding: 14px 0 10px; border-top: 2px solid var(--teal); margin-top: 28px; display: flex; align-items: center; gap: 8px; }
+  .pub-item { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 18px; margin-bottom: 8px; display: grid; grid-template-columns: 28px 1fr auto; gap: 12px; align-items: start; }
+  .pub-num { font-size: 11px; font-weight: 700; color: var(--teal); padding-top: 2px; }
+  .pub-detail .authors { font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+  .pub-detail .title { font-size: 12px; color: var(--ink); line-height: 1.5; margin-bottom: 3px; }
+  .pub-detail .journal { font-size: 11px; color: var(--muted); font-style: italic; }
+  .pub-link { font-size: 10px; font-weight: 700; color: var(--teal); text-decoration: none; white-space: nowrap; padding-top: 3px; letter-spacing: 0.05em; }
+  .pub-link:hover { color: var(--navy); }
+
+  /* ── PRIVACY ── */
+  .policy-section { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 28px 32px; margin-bottom: 20px; }
+  .policy-section h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+  .policy-section h4 { font-size: 13px; font-weight: 600; color: var(--navy); margin: 16px 0 6px; }
+  .policy-section p { font-size: 12px; color: var(--muted); line-height: 1.75; margin-bottom: 10px; }
+  .policy-section ul { padding-left: 18px; margin-bottom: 10px; }
+  .policy-section ul li { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+  .policy-meta { font-size: 10px; color: var(--teal); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+
+  /* ── PRIVACY NAV CARDS ── */
+  .privacy-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 24px 0; }
+  .privacy-nav-card { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 20px; text-decoration: none; color: inherit; transition: all 0.2s; }
+  .privacy-nav-card:hover { border-color: var(--teal); }
+  .privacy-nav-card .pnc-icon { font-size: 24px; margin-bottom: 8px; }
+  .privacy-nav-card h4 { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 5px; }
+  .privacy-nav-card p { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* ── SECTION HEADING ── */
+  .sh { font-size: 24px; font-weight: 300; color: var(--navy); margin: 32px 0 14px; letter-spacing: -0.01em; }
+  .sh em { color: var(--teal); font-style: italic; }
+  .sh-sub { font-size: 13px; color: var(--muted); max-width: 720px; line-height: 1.7; margin-bottom: 24px; }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--rule); margin: 32px 0; }
+
+  /* ── CTA ── */
+  .cta-block { background: var(--navy); border-radius: 8px; padding: 32px 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; margin: 32px 0; }
+  .cta-block h3 { font-size: 20px; font-weight: 300; color: white; }
+  .cta-block h3 em { color: var(--teal-l); font-style: italic; }
+  .cta-block p { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 6px; }
+  .btn { display: inline-block; background: var(--teal); color: white; font-size: 12px; font-weight: 700; padding: 12px 22px; border-radius: 4px; text-decoration: none; letter-spacing: 0.06em; white-space: nowrap; }
+
+  /* ── LIMITATION CARDS ── */
+  .limit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin: 24px 0; }
+  .limit-card { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 22px; border-left: 4px solid var(--amber); }
+  .limit-card .num { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .limit-card h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .limit-card p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+  .limit-card .tag { font-size: 10px; color: var(--amber); font-weight: 600; margin-top: 8px; }
+
+  /* ── EVIDENCE BADGES ── */
+  .ev-badges { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+  .ev-badge { background: var(--navy); color: white; font-size: 11px; font-weight: 600; padding: 6px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+  .ev-badge span { color: var(--teal-l); }
+
+  /* ── FOOTER ── */
+  .site-footer { background: var(--navy); padding: 28px 40px; margin-top: 40px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .footer-brand { font-size: 16px; font-weight: 700; color: white; }
+  .footer-brand span { color: var(--teal-l); }
+  .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .footer-links a { font-size: 11px; color: rgba(255,255,255,0.5); text-decoration: none; }
+  .footer-links a:hover { color: var(--teal-l); }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.3); }
+
+  /* ── ABOUT BDRI ── */
+  .bdri-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+  .bdri-card { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 20px; text-align: center; }
+  .bdri-card .icon { font-size: 28px; margin-bottom: 10px; }
+  .bdri-card h4 { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .bdri-card p { font-size: 11px; color: var(--muted); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="site-nav">
+  <div class="nav-brand">Beyond<span>A1C</span></div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a href="#" onclick="showPage('refs')"  id="nav-refs">References</a>
+    <a href="#" onclick="showPage('privacy')" id="nav-privacy">Privacy</a>
+  </div>
+</nav>
+
+<!-- PAGE TABS -->
+<div class="page-tabs">
+  <div class="page-tab active" onclick="showPage('home')"    id="tab-home">index.html</div>
+  <div class="page-tab"        onclick="showPage('refs')"    id="tab-refs">references.html</div>
+  <div class="page-tab"        onclick="showPage('privacy')" id="tab-privacy">privacy.html</div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════ -->
+<div class="page-section active" id="page-home">
+
+  <div class="hero">
+    <div class="eyebrow">Boston Diabetes Research Institute</div>
+    <h1>A point-of-care screening program for detecting<br><em>diabetic peripheral neuropathy and associated microvascular complication risk</em></h1>
+    <p>Developed by the Boston Diabetes Research Institute, BeyondA1C is a screening program built on BDRI's research showing that peripheral neuropathy is a sentinel marker for diabetic microvascular complications, including neuropathy, retinopathy, and nephropathy. BeyondA1C uses DPNCheck® (FDA-cleared for sural nerve conduction measurement) and BDRI's proprietary algorithm to generate a composite risk profile.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- Key markers -->
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">🔬</div><div class="stat-label">BDRI Innovation — Boston Diabetes Research Institute</div></div>
+      <div class="stat-box"><div class="stat-num">✓</div><div class="stat-label">FDA Cleared Device — BeyondA1C uses a Class II cleared device</div></div>
+      <div class="stat-box"><div class="stat-num">35+</div><div class="stat-label">Peer-reviewed publications in indexed journals</div></div>
+      <div class="stat-box"><div class="stat-num">&lt;1 min</div><div class="stat-label">Results in under one minute at point of care</div></div>
+    </div>
+
+    <!-- Score scale -->
+    <h2 class="sh">BeyondA1C Composite <em>Microvascular Score</em></h2>
+    <p class="sh-sub">Score ranges from 0 to 12. Results are color-coded by severity and downloadable for EHR upload.</p>
+    <div class="score-scale">
+      <div class="score-tier tier-low"><div class="range">0–3</div><div class="label">Low</div></div>
+      <div class="score-tier tier-mod"><div class="range">4–6</div><div class="label">Moderate</div></div>
+      <div class="score-tier tier-high"><div class="range">7–9</div><div class="label">High ▲</div></div>
+      <div class="score-tier tier-vhigh"><div class="range">10–12</div><div class="label">Very High</div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Three findings -->
+    <h2 class="sh">Three discoveries. <em>One screening program.</em></h2>
+    <p class="sh-sub">For years, the team at the Boston Diabetes Research Institute has been asking a hard question: why do so many patients develop devastating complications even when their diabetes appears well controlled? That work led to three connected discoveries that form the scientific foundation of BeyondA1C.</p>
+
+    <div class="finding-grid">
+      <div class="finding-card">
+        <div class="num">Finding 01</div>
+        <h3>A1C has a blind spot</h3>
+        <p>A1C reflects average glucose but says nothing about the oxidative stress, nerve injury, or vascular damage that may already be underway in a patient's tissues.</p>
+      </div>
+      <div class="finding-card">
+        <div class="num">Finding 02</div>
+        <h3>Neuropathy is the sentinel</h3>
+        <p>BDRI's research establishes that nerve dysfunction tends to appear first. Peripheral neuropathy is an independent predictor of microvascular complications, including retinopathy, nephropathy, and cardiovascular autonomic neuropathy, in diabetic patients (Vinik AI et al. Endocrinol Metab Clin North Am. 2004;33(2):405–415). BeyondA1C uses DPNCheck® and BDRI's algorithm to generate a composite risk profile across these complication domains.</p>
+      </div>
+      <div class="finding-card">
+        <div class="num">Finding 03</div>
+        <h3>BeyondA1C is born</h3>
+        <p>A point-of-care screening program using DPNCheck® (FDA-cleared for sural nerve conduction measurement) and BDRI's proprietary algorithm to generate a composite risk profile across neuropathy, retinopathy, and nephropathy.</p>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">50%</div><div class="stat-label">of people with diabetes develop peripheral neuropathy, the first sign of microvascular disease</div></div>
+      <div class="stat-box"><div class="stat-num">50%</div><div class="stat-label">of those cases are completely asymptomatic until advanced stages of damage</div></div>
+      <div class="stat-box"><div class="stat-num">3×</div><div class="stat-label">more asymptomatic cases detected by nerve conduction studies vs. monofilament testing (Perkins BA et al. Diabetes Care. 2001;24(2):250–256)</div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- A1C limitations -->
+    <h2 class="sh">A1C measures average glucose. <em>It does not measure nerve conduction, retinal vascular integrity, or kidney filtration.</em></h2>
+    <p class="sh-sub">BDRI's first key finding was documenting the specific ways A1C fails as a standalone measure of diabetic complication risk.</p>
+
+    <div class="limit-grid">
+      <div class="limit-card">
+        <div class="num">Limitation 01</div>
+        <h4>A1C misses silent, early damage</h4>
+        <p>Up to 50% of patients with diabetic neuropathy are completely asymptomatic in the early and moderate stages. Nerve damage accumulates for years with no signal in a standard blood panel. By the time symptoms appear, the window for meaningful intervention has often closed.</p>
+        <div class="tag">↗ Damage begins years before any clinical sign</div>
+      </div>
+      <div class="limit-card">
+        <div class="num">Limitation 02</div>
+        <h4>Good A1C does not mean no complications</h4>
+        <p>Glycemic control alone does not fully capture risk for diabetic foot complications. Even patients with A1C levels considered well-controlled remain vulnerable to ulceration and amputation due to factors such as neuropathy, microvascular disease, and cumulative glycemic exposure. (Journal of Diabetes and its Complications, 2020;34(10):107638.)</p>
+      </div>
+      <div class="limit-card">
+        <div class="num">Limitation 03</div>
+        <h4>A1C does not screen for microvascular damage</h4>
+        <p>A1C reflects glycated hemoglobin. It does not measure nerve conduction, retinal vascular integrity, or kidney filtration. Those are separate biological processes that need direct measurement. Relying on A1C alone leaves the most important window for early intervention completely dark.</p>
+        <div class="tag">↗ Annual cost of diabetic peripheral neuropathy and its complications: $10.9 billion (US) (Gordois A et al. Diabetes Care. 2003;26(6):1790–1795. DOI: 10.2337/diacare.26.6.1790). Lifetime cost of treating Type 2 Diabetes complications: ~$47,240 average per patient (complications portion) (O'Brien JA et al. Am J Health Syst Pharm. 2003;60(22):2324–2329. DOI: 10.1093/ajhp/60.22.2324).</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- How it works -->
+    <h2 class="sh">Peripheral neuropathy as a sentinel marker. <em>Screened at the point of care.</em></h2>
+    <p class="sh-sub">BDRI's second key finding was that diabetic peripheral neuropathy is not just one complication among many. It is a sentinel marker: the first sign of a broader microvascular process that, left undetected, leads to retinopathy, nephropathy, and cardiovascular autonomic neuropathy (Vinik AI et al. Endocrinol Metab Clin North Am. 2004). BeyondA1C was built on that insight. No specialist training needed. Results in under one minute.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="icon">🪑</div>
+        <h4>Position &amp; Prepare</h4>
+        <p>Seat the patient comfortably and expose the ankle. Clean the skin to ensure good sensor contact. Any staff member can do this part. No specialist training required.</p>
+        <div class="badge">Under 60 seconds setup</div>
+      </div>
+      <div class="step">
+        <div class="icon">🩺</div>
+        <h4>Attach Biosensor &amp; Apply Gel</h4>
+        <p>Attach the single-use biosensor and apply a small amount of conductive gel. One biosensor per patient keeps things hygienic and the signal quality consistent.</p>
+        <div class="badge">Single-use per patient</div>
+      </div>
+      <div class="step">
+        <div class="icon">⚡</div>
+        <h4>Run the Automated Test</h4>
+        <p>Place the device on the ankle and press start. It finds the right stimulation level on its own, then averages 8 to 12 nerve responses to build a reliable, reproducible result.</p>
+        <div class="badge">Fully automated</div>
+      </div>
+      <div class="step">
+        <div class="icon">📊</div>
+        <h4>View Objective Results</h4>
+        <p>Enter patient and sural nerve data into the BeyondA1C portal. A color-coded report is instantly downloadable. Upload the PDF to your EHR or share it directly with the patient.</p>
+        <div class="badge">Results in under one minute</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">54%</div><div class="stat-label">Asymptomatic neuropathy detection rate via nerve conduction study compared to 17% for monofilament testing (Perkins BA et al. Diabetes Care. 2001;24(2):250–256)</div></div>
+      <div class="stat-box"><div class="stat-num">95%</div><div class="stat-label">Sensitivity vs. reference standard nerve conduction studies (Perkins BA et al. Diabetes Care. 2006;29(9):2023–2027)</div></div>
+      <div class="stat-box"><div class="stat-num">0.88</div><div class="stat-label">Area under the curve for diagnostic accuracy in diabetic polyneuropathy (Hirayasu et al. J Diabetes Investig. 2018;9:1173–1181)</div></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Complications -->
+    <h2 class="sh">One marker. <em>A window into neuropathy, retinopathy, and nephropathy risk.</em></h2>
+    <p class="sh-sub">BDRI's research showed that diabetic peripheral neuropathy shares its root causes with retinopathy, nephropathy, and cardiovascular autonomic neuropathy: oxidative stress, endothelial dysfunction, and chronic inflammation. That is why nerve function data is not just a neuropathy screen; it provides a composite risk signal across neuropathy, retinopathy, and nephropathy.</p>
+
+    <div class="complication-row">
+      <div class="complication-card">
+        <div class="icon">🦶</div>
+        <h3>Diabetic Peripheral Neuropathy</h3>
+        <div class="stat-inline">~50%</div>
+        <div class="stat-note">of people with diabetes develop peripheral neuropathy over time</div>
+        <p style="margin-top:10px">BeyondA1C measures sural nerve conduction directly at the point of care in under two minutes, finding asymptomatic cases roughly three times more often than traditional monofilament testing.</p>
+      </div>
+      <div class="complication-card">
+        <div class="icon">👁</div>
+        <h3>Vision-Threatening Retinopathy</h3>
+        <p>Peripheral neuropathy is associated with both the presence and increasing severity of diabetic retinopathy, reflecting shared microvascular pathology rather than a singular causal pathway (Feldman EL et al. Lancet Diabetes Endocrinol. 2019;7(12):938–948. DOI: 10.1016/S2213-8587(19)30059-6). Population studies demonstrate that retinopathy is significantly more common in patients with peripheral neuropathy, with several-fold higher prevalence compared to those without neuropathy (Ponirakis G et al. BMJ Open Diabetes Res Care. 2020;8(1):e001014. DOI: 10.1136/bmjdrc-2019-001014; Raman R et al. SAGE Open Med. 2022;10:20503121221099946. DOI: 10.1177/20503121221099946). Cross-sectional and mechanistic data show that neuropathy severity tracks with retinopathy severity, with markedly higher neuropathy prevalence in advanced retinopathy stages (Tesfaye S et al. Diabetes Care. 2010;33(10):2285–2293. DOI: 10.2337/dc10-1303). Emerging mechanistic and imaging data confirm that neural injury and retinal microvascular damage are biologically linked, sharing common pathways including microvascular ischemia and neurodegeneration (Feldman EL et al. 2019). This association reflects BDRI research findings and does not constitute a cleared indication for retinopathy screening.</p>
+      </div>
+      <div class="complication-card">
+        <div class="icon">🫘</div>
+        <h3>Diabetic Nephropathy</h3>
+        <p>Decline in kidney function in diabetes is not uniformly accompanied by albuminuria. Contemporary guidelines and epidemiologic studies recognize a non-albuminuric phenotype of diabetic kidney disease, in which significant eGFR loss occurs despite normal or minimally elevated albumin excretion. BeyondA1C-measured peripheral neuropathy provides an additional marker of systemic microvascular injury that may help identify patients at risk for kidney function decline, including those who would not be flagged by albuminuria alone. This association reflects BDRI research findings and does not constitute a cleared indication for nephropathy screening.</p>
+        <div class="stat-note" style="margin-top:10px">Sources: KDIGO 2022 Clinical Practice Guideline for Diabetes Management in CKD. Kidney Int. 2022;102(5S):S1–S127; Selvarajah S et al. JAMA Netw Open. 2020;3(10):e2025497</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Comparison -->
+    <h2 class="sh">How BeyondA1C and A1C <em>differ in scope.</em></h2>
+    <p class="sh-sub">BeyondA1C is built on BDRI's research using DPNCheck® (FDA-cleared for sural nerve conduction measurement) and a proprietary algorithm to generate a composite risk profile. A1C measures average glucose; BeyondA1C measures sural nerve function. The two tests address different physiological domains. BeyondA1C does not replace A1C.</p>
+
+    <table class="comp-table">
+      <thead><tr><th>Capability</th><th>A1C Alone</th><th>BeyondA1C</th></tr></thead>
+      <tbody>
+        <tr><td>Detects early nerve damage</td><td><span class="check-no">✗</span></td><td><span class="check-yes">✓</span></td></tr>
+        <tr><td>Associated with retinopathy risk in BDRI studies</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓ (research)</span></td></tr>
+        <tr><td>Asymptomatic case detection</td><td><span class="check-lim">Limited</span></td><td><span class="check-yes">3× more</span></td></tr>
+        <tr><td>Associated with nephropathy progression in BDRI studies</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓ (research)</span></td></tr>
+        <tr><td>Mortality association (DPNCheck + SUDOSCAN combined; Sloan et al. 2023)</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓ (research)</span></td></tr>
+        <tr><td>Point-of-care, no referral needed</td><td><span class="check-no">✗</span></td><td><span class="check-yes">✓</span></td></tr>
+        <tr><td>Detects neuropathy risk across A1C levels, including below 7% (J Diabetes Complications. 2020;34(10):107638)</td><td><span class="check-no">—</span></td><td><span class="check-yes">✓ (research)</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="divider"></div>
+
+    <!-- Evidence summary -->
+    <h2 class="sh">A decade of <em>peer-reviewed research.</em></h2>
+    <div class="ev-badges">
+      <div class="ev-badge">✓ Uses FDA Cleared Device</div>
+      <div class="ev-badge">📖 <span>35+</span> Studies</div>
+      <div class="ev-badge">🧑‍⚕️ <span>2M+</span> Patients Screened</div>
+      <div class="ev-badge">95% Sensitivity vs. reference NCS</div>
+      <div class="ev-badge">0.88 AUC diagnostic accuracy</div>
+    </div>
+    <p style="font-size:11px; color:var(--muted); margin-top:8px">2M+ represents cumulative commercial deployment of the DPNCheck device (NeuroMetrix).</p>
+
+    <div style="margin-top:20px">
+      <a href="#" onclick="showPage('refs')" class="btn">View All Clinical Publications →</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- For patients FAQ -->
+    <h2 class="sh">Screening for complications <em>before they become serious.</em></h2>
+    <p class="sh-sub">No preparation needed. Results in under one minute.</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">What is BeyondA1C and why would my doctor order it?</div>
+        <div class="faq-a">BeyondA1C uses a small handheld device to measure how well the sural nerve in your ankle conducts electrical signals. Because peripheral neuropathy is one of the first signs of microvascular disease, this short test gives your doctor a useful window into your overall complication risk, including neuropathy, kidney disease, and eye disease.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is the test painful or time-consuming?</div>
+        <div class="faq-a">Not at all. The full test takes under one minute. You might feel a brief, mild tingling, a bit like when a foot falls asleep. Most patients are surprised by how quick it is, and there is nothing you need to do beforehand.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I have complications if my A1C is in a good range?</div>
+        <div class="faq-a">Yes, and that is exactly why BeyondA1C was developed. Glycemic control alone does not fully capture risk for diabetic foot complications. Even patients with A1C levels below 7% remain vulnerable to ulceration and amputation due to factors such as neuropathy, microvascular disease, and cumulative glycemic exposure. (Journal of Diabetes and its Complications, Volume 34, Issue 10, October 2020, 107638.) Managing blood glucose matters a great deal, but A1C cannot tell your doctor whether your nerves, kidneys, or eyes are already being affected. BeyondA1C addresses that gap.</div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <div><h3>Partner with <em>BeyondA1C.</em></h3><p>Clinicians, health systems, and research partners welcome.</p></div>
+      <a href="#" class="btn">Get Started</a>
+    </div>
+
+    <!-- About section (from homepage body) -->
+    <div class="bdri-cards">
+      <div class="bdri-card"><div class="icon">🔬</div><h4>Built on BDRI's sentinel marker discovery</h4><p>BDRI's research establishes peripheral neuropathy as an independent predictor of microvascular complications in diabetic patients, including retinopathy, nephropathy, and cardiovascular autonomic neuropathy. BeyondA1C translates that finding into a practical, in-office composite risk profile.</p></div>
+      <div class="bdri-card"><div class="icon">🧠</div><h4>BDRI proprietary algorithm</h4><p>BeyondA1C uses BDRI's proprietary algorithm to process sural nerve conduction data from DPNCheck® (FDA-cleared) and generate a composite risk profile. Algorithm updates are subject to regulatory review; consult your legal and regulatory team before publishing claims about algorithm refinements.</p></div>
+      <div class="bdri-card"><div class="icon">🎯</div><h4>One test, three complication domains</h4><p>One brief, automated test generates a composite risk profile that, in BDRI studies, is associated with neuropathy, retinopathy, and nephropathy outcomes — all from a single in-office visit.</p></div>
+      <div class="bdri-card"><div class="icon">🏥</div><h4>True point-of-care, no referral required</h4><p>Results in under one minute, color-coded by severity. No large equipment, no specialist training. Any primary care, endocrinology, or podiatry clinic can start offering this today.</p></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     REFERENCES PAGE
+════════════════════════════════════════ -->
+<div class="page-section" id="page-refs">
+
+  <div class="hero">
+    <div class="eyebrow">Boston Diabetes Research Institute</div>
+    <h1>Clinical Publications <em>and References</em></h1>
+    <p>The science behind BeyondA1C draws on decades of peer-reviewed research across four areas: the limitations of A1C alone, the role of peripheral neuropathy as a sentinel marker, retinopathy screening evidence, and current standards of care.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">55</div><div class="stat-label">Total References</div></div>
+      <div class="stat-box"><div class="stat-num">35+</div><div class="stat-label">DPNCheck Studies</div></div>
+      <div class="stat-box"><div class="stat-num">2M+</div><div class="stat-label">Patients in Evidence Base</div></div>
+    </div>
+
+    <!-- Section A: HbA1c -->
+    <div class="pub-section-title">🔬 HbA1c Limitations and Association with Peripheral Neuropathy</div>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:16px">These studies form the foundation of BDRI's first finding: that A1C alone has significant limitations as a standalone measure of diabetic complication risk, and that HbA1c variability and level are associated with neuropathy severity and progression.</p>
+
+    <div class="pub-item"><div class="pub-num">1</div><div class="pub-detail"><div class="authors">Su JB, et al. (2018)</div><div class="title">HbA1c variability and diabetic peripheral neuropathy in type 2 diabetic patients.</div><div class="journal">Cardiovasc Diabetol</div></div><a class="pub-link" href="https://cardiab.biomedcentral.com/articles/10.1186/s12933-018-0693-0" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">2</div><div class="pub-detail"><div class="authors">Lai YR, et al. (2019)</div><div class="title">HbA1C Variability Is Strongly Associated With the Severity of Peripheral Neuropathy.</div><div class="journal">Front Neurosci</div></div><a class="pub-link" href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2019.00090/full" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">3</div><div class="pub-detail"><div class="authors">Zhang Y, et al. (2017)</div><div class="title">Lower eGFR and higher UACR predict diabetic peripheral neuropathy.</div><div class="journal">J Diabetes Complications</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/27396240/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">4</div><div class="pub-detail"><div class="authors">Bansal D, et al. (2006)</div><div class="title">A 1% HbA1c increment is associated with a 10–15% increase in diabetic peripheral neuropathy risk.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2019.00090/full" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">5</div><div class="pub-detail"><div class="authors">Jin P, et al. (2016)</div><div class="title">Glycemic variability and microvascular complications in diabetes.</div><div class="journal">Endocrine</div></div><a class="pub-link" href="https://www.endocrine-abstracts.org/ea/0041/ea0041gp92" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">6</div><div class="pub-detail"><div class="authors">Kilpatrick ES, et al. (2008)</div><div class="title">HbA1c variability and the risk of microvascular complications in type 1 diabetes.</div><div class="journal">Diabet Med</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/18650371/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">7</div><div class="pub-detail"><div class="authors">Perkins BA, et al. (2001)</div><div class="title">Glycemic control and the morphological severity of diabetic peripheral neuropathy.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://diabetesjournals.org/care/article/24/4/748/23422/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">8</div><div class="pub-detail"><div class="authors">Ziegler D, et al. (2004)</div><div class="title">Diabetic neuropathy severity and oxidative stress.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://diabetesjournals.org/care/article/27/9/2178/22609/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">9</div><div class="pub-detail"><div class="authors">Lee WJ, et al. (2022)</div><div class="title">Association Between HbA1c Levels and Diabetic Peripheral Neuropathy.</div><div class="journal">Diabetes Metab Syndr Obes</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/35023938/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">10</div><div class="pub-detail"><div class="authors">Xu Y, et al. (2018)</div><div class="title">Sustained HbA1c below 7% reduces diabetes complications.</div><div class="journal">Diabetes Ther</div></div><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9056490/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">11</div><div class="pub-detail"><div class="authors">Liu X, et al. (2019)</div><div class="title">Risk factors for diabetic peripheral neuropathy: a meta-analysis.</div><div class="journal">PLoS One</div></div><a class="pub-link" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0212574" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">12</div><div class="pub-detail"><div class="authors">Lee SH, et al. (2016)</div><div class="title">Correlation Between HbA1c and Neuropathy Disability Score.</div><div class="journal">Ann Rehabil Med</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/27152276/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">13</div><div class="pub-detail"><div class="authors">Global Research Online (2023)</div><div class="title">Correlation Study between Diabetic Peripheral Neuropathy and HbA1c.</div><div class="journal">Int J Pharm Sci Res Rev</div></div><a class="pub-link" href="https://globalresearchonline.net/ijpsrr/v84-12/03.pdf" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">14</div><div class="pub-detail"><div class="authors">Badiu C, et al. (2021)</div><div class="title">HbA1c as a Biomarker for Diabetic Foot Neuropathy.</div><div class="journal">Diseases</div></div><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8006047/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">15</div><div class="pub-detail"><div class="authors">Gomes R, et al. (2020)</div><div class="title">HbA1c variability and diabetic peripheral neuropathy in type 1 diabetes.</div><div class="journal">Diabetol Metab Syndr</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/33042229/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">16</div><div class="pub-detail"><div class="authors">Vinik AI, et al. (2004)</div><div class="title">Diabetic neuropathies.</div><div class="journal">Endocrinol Metab Clin North Am</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/24286949/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">17</div><div class="pub-detail"><div class="authors">Dyck PJ, et al. (1999)</div><div class="title">Risk factors for the severity of diabetic polyneuropathy.</div><div class="journal">Diabetes</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/10480512/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">18</div><div class="pub-detail"><div class="authors">Tesfaye S, et al. (2005)</div><div class="title">Risk factors for diabetic peripheral neuropathy.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/20876709/" target="_blank">View →</a></div>
+
+    <!-- Section B: DPNCheck -->
+    <div class="pub-section-title">🦶 BeyondA1C and DPNCheck Clinical Evidence</div>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:16px">Peer-reviewed studies validating the device that powers BeyondA1C, including diagnostic accuracy, severity staging, and predictive value for mortality and microvascular complications.</p>
+
+    <div class="pub-item"><div class="pub-num">19</div><div class="pub-detail"><div class="authors">Sloan GP, et al. (2023)</div><div class="title">DPNCheck combined with SUDOSCAN predicts all-cause mortality in people with diabetes.</div><div class="journal">Diabetes</div></div><a class="pub-link" href="https://diabetesjournals.org/diabetes/article/72/Supplement_1/489-P/150545/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">20</div><div class="pub-detail"><div class="authors">Pleven S, et al. (2023)</div><div class="title">Reliability of DPNCheck for peripheral neuropathy screening.</div><div class="journal">Sci Rep</div></div><a class="pub-link" href="https://www.nature.com/articles/s41598-023-45841-6" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">21</div><div class="pub-detail"><div class="authors">Otsuki R, et al. (2021)</div><div class="title">DPNCheck predicts severity of diabetic peripheral neuropathy.</div><div class="journal">J Diabetes Investig</div></div><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8015817/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">22</div><div class="pub-detail"><div class="authors">DPNCheck Publications (2025)</div><div class="title">Complete list of peer-reviewed studies validating DPNCheck.</div><div class="journal">DPNCheck.com</div></div><a class="pub-link" href="https://dpncheck.com/clinical-publications/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">23</div><div class="pub-detail"><div class="authors">Hirano T, et al. (2018)</div><div class="title">Normal reference limits for DPNCheck nerve conduction measures.</div><div class="journal">J Diabetes Investig</div></div><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6123044/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">24</div><div class="pub-detail"><div class="authors">Goonoo MS, et al. (2024)</div><div class="title">Combined DPNCheck and SUDOSCAN as a comprehensive screening tool.</div><div class="journal">Diabetes</div></div><a class="pub-link" href="https://diabetesjournals.org/diabetes/article/73/Supplement_1/11-OR/155503/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">25</div><div class="pub-detail"><div class="authors">Richard JL, et al. (2015)</div><div class="title">NC-stat DPNCheck use in pharmacy settings.</div><div class="journal">Can Pharm J</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/26759561/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">26</div><div class="pub-detail"><div class="authors">Papanas N, et al. (2017)</div><div class="title">Grading of diabetic peripheral neuropathy severity using DPNCheck.</div><div class="journal">Prim Care Diabetes</div></div><a class="pub-link" href="https://www.tandfonline.com/doi/full/10.1080/17434440.2017.1305266" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">27</div><div class="pub-detail"><div class="authors">Pleven S, et al. (2024)</div><div class="title">Comparison of DPN screening modalities including DPNCheck.</div><div class="journal">Int J Low Extrem Wounds</div></div><a class="pub-link" href="https://journals.sagepub.com/doi/10.1177/15347346241295461" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">28</div><div class="pub-detail"><div class="authors">Selvarajah D, et al. (2023)</div><div class="title">Diabetic peripheral neuropathy screening predicts mortality.</div><div class="journal">Diabetes UK Poster</div></div><a class="pub-link" href="https://diabetesjournals.org/diabetes/article/72/Supplement_1/489-P/150545/" target="_blank">View →</a></div>
+
+    <!-- Section C: Retinopathy -->
+    <div class="pub-section-title">👁 Diabetic Retinopathy: Screening Guidelines and Risk Factors</div>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:16px">Clinical guidelines and research supporting BDRI's second finding: that peripheral neuropathy serves as a sentinel marker for retinopathy risk and progression.</p>
+
+    <div class="pub-item"><div class="pub-num">29</div><div class="pub-detail"><div class="authors">American Diabetes Association (2022)</div><div class="title">Retinopathy, Neuropathy, and Foot Care. Standards of Medical Care in Diabetes.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://diabetesjournals.org/care/article/45/Supplement_1/S185/138917/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">30</div><div class="pub-detail"><div class="authors">American Diabetes Association (2025)</div><div class="title">Retinopathy, Neuropathy, and Foot Care. Standards of Medical Care in Diabetes.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://diabetesjournals.org/care/article/48/Supplement_1/S252/157552/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">31</div><div class="pub-detail"><div class="authors">Diabetes Canada (2023)</div><div class="title">Clinical Practice Guidelines: Retinopathy.</div><div class="journal">Diabetes Canada Guidelines</div></div><a class="pub-link" href="https://guidelines.diabetes.ca/cpg/chapter30" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">32</div><div class="pub-detail"><div class="authors">Cleveland Clinic (2025)</div><div class="title">Diabetic Retinopathy: Screening, Prevention, and Treatment.</div><div class="journal">Cleveland Clinic Consult QD</div></div><a class="pub-link" href="https://consultqd.clevelandclinic.org/diabetic-retinopathy-screening-prevention-and-treatment" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">33</div><div class="pub-detail"><div class="authors">Al Malki MI, et al. (2021)</div><div class="title">HbA1c and diabetic retinopathy severity.</div><div class="journal">Cureus</div></div><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7863112/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">34</div><div class="pub-detail"><div class="authors">Cheema A, et al. (2023)</div><div class="title">Prevalence and risk factors of retinopathy in type 1 diabetes.</div><div class="journal">J Clin Med</div></div><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10686625/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">35</div><div class="pub-detail"><div class="authors">Medscape (2024)</div><div class="title">Diabetic Retinopathy: Practice Guidelines.</div><div class="journal">Medscape</div></div><a class="pub-link" href="https://emedicine.medscape.com/article/1225122-guidelines" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">36</div><div class="pub-detail"><div class="authors">NHMRC (2008)</div><div class="title">Guidelines for the Management of Diabetic Retinopathy.</div><div class="journal">NHMRC</div></div><a class="pub-link" href="https://www.tga.gov.au/sites/default/files/foi-332-1112-21.pdf" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">37</div><div class="pub-detail"><div class="authors">Raman R, et al. (2013)</div><div class="title">Royal College of Ophthalmologists Guidelines for Diabetic Retinopathy.</div><div class="journal">Eye</div></div><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3574265/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">38</div><div class="pub-detail"><div class="authors">Romero-Aroca P, et al. (2017)</div><div class="title">Update on the diagnosis and treatment of diabetic retinopathy.</div><div class="journal">J Ophthalmol</div></div><a class="pub-link" href="#" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">39</div><div class="pub-detail"><div class="authors">RANZCO (2016)</div><div class="title">Screening Pathway for Diabetic Retinopathy.</div><div class="journal">RANZCO</div></div><a class="pub-link" href="https://ranzco.edu/wp-content/uploads/2018/11/RANZCO-Referral-pathway-for-DR-2016.pdf" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">40</div><div class="pub-detail"><div class="authors">WHO (2021)</div><div class="title">Diabetic Retinopathy Screening Guide.</div><div class="journal">World Health Organization</div></div><a class="pub-link" href="https://apps.who.int/iris/bitstream/handle/10665/336660/9789289055321-eng.pdf" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">41</div><div class="pub-detail"><div class="authors">Aiello LP, et al. (2017)</div><div class="title">Frequency of diabetic retinopathy screening intervals.</div><div class="journal">NEJM</div></div><a class="pub-link" href="https://www.nejm.org/doi/full/10.1056/NEJMoa1612836" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">42</div><div class="pub-detail"><div class="authors">Aiello LP (2017)</div><div class="title">ADA Position on Diabetic Retinopathy.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://professional.diabetes.org/standards-of-care/key-statements-and-reports" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">43</div><div class="pub-detail"><div class="authors">Guideline Central (2025)</div><div class="title">Comparing Diabetic Retinopathy Guidelines.</div><div class="journal">Guideline Central</div></div><a class="pub-link" href="https://www.guidelinecentral.com/insights/nov-2025-interventionsdiabetesadults-guideline-sidebyside/" target="_blank">View →</a></div>
+
+    <!-- Section D: ADA -->
+    <div class="pub-section-title">📋 ADA Standards of Care and Clinical Practice Guidelines</div>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:16px">Current and recent guidelines from the American Diabetes Association and related organizations, providing the clinical context for BeyondA1C's screening approach.</p>
+
+    <div class="pub-item"><div class="pub-num">44</div><div class="pub-detail"><div class="authors">ADA (2025)</div><div class="title">Standards of Medical Care in Diabetes.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://professional.diabetes.org/standards-of-care" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">45</div><div class="pub-detail"><div class="authors">Guideline Central (2025)</div><div class="title">2025 ADA Standards of Care Summary.</div><div class="journal">Guideline Central</div></div><a class="pub-link" href="https://www.guidelinecentral.com/guideline/14119/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">46</div><div class="pub-detail"><div class="authors">ADA (2023)</div><div class="title">Abridged Standards of Medical Care in Diabetes for Primary Care.</div><div class="journal">Clin Diabetes</div></div><a class="pub-link" href="https://professional.diabetes.org/standards-of-care" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">47</div><div class="pub-detail"><div class="authors">WA Family Physicians (2025)</div><div class="title">2025 ADA Standards of Care: Key Updates.</div><div class="journal">WAFP</div></div><a class="pub-link" href="https://www.wafp.org/assets/files/2025_ADA_Updates_All_Sections_95.pdf" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">48</div><div class="pub-detail"><div class="authors">ADA (2025)</div><div class="title">Summary of Revisions: Standards of Medical Care in Diabetes.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://diabetesjournals.org/care/article/48/Supplement_1/S6/157564/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">49</div><div class="pub-detail"><div class="authors">ADA (2024)</div><div class="title">Diagnosis and Classification of Diabetes.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://diabetesjournals.org/care/article/47/Supplement_1/S20/153954/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">50</div><div class="pub-detail"><div class="authors">ADA (2023)</div><div class="title">2023 Standards of Care in Diabetes: Guide for Prevention, Diagnosis and Treatment.</div><div class="journal">ADA Newsroom</div></div><a class="pub-link" href="https://diabetes.org/newsroom/american-diabetes-association-2023-standards-care-diabetes-guide-for-prevention-diagnosis-treatment-people-living-with-diabetes" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">51</div><div class="pub-detail"><div class="authors">NIDDK (2025)</div><div class="title">ADA 2022 Standards of Medical Care Update.</div><div class="journal">NIDDK</div></div><a class="pub-link" href="https://www.niddk.nih.gov/health-information/professionals/diabetes-discoveries-practice/ada-2022-standards-of-medical-care-in-diabetes-update" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">52</div><div class="pub-detail"><div class="authors">ADA (2025)</div><div class="title">Clinical Practice Guidelines.</div><div class="journal">ADA Professional</div></div><a class="pub-link" href="https://professional.diabetes.org/standards-of-care" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">53</div><div class="pub-detail"><div class="authors">ADA (2024)</div><div class="title">Chronic Kidney Disease and Risk Management.</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://diabetesjournals.org/care/article/47/Supplement_1/S219/153938/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">54</div><div class="pub-detail"><div class="authors">ADA (2024)</div><div class="title">Diagnosis and Classification of Diabetes (PubMed).</div><div class="journal">Diabetes Care</div></div><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/38078589/" target="_blank">View →</a></div>
+    <div class="pub-item"><div class="pub-num">55</div><div class="pub-detail"><div class="authors">NIDDK (2025)</div><div class="title">What's New in the 2024 ADA Standards of Care.</div><div class="journal">NIDDK</div></div><a class="pub-link" href="https://www.niddk.nih.gov/health-information/professionals/diabetes-discoveries-practice/ada-2024-standards-of-care" target="_blank">View →</a></div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PRIVACY PAGE
+════════════════════════════════════════ -->
+<div class="page-section" id="page-privacy">
+
+  <div class="hero">
+    <div class="eyebrow">Legal &amp; Compliance</div>
+    <h1>Privacy and <em>Trust Center</em></h1>
+    <p>Understand how we collect, use, and protect your information. Your privacy matters to us, and we are committed to being transparent about our practices.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="privacy-nav">
+      <div class="privacy-nav-card"><div class="pnc-icon">🔒</div><h4>Privacy Policy</h4><p>Understand what data we collect, why we collect it, and how we keep it secure.</p></div>
+      <div class="privacy-nav-card"><div class="pnc-icon">📋</div><h4>Terms of Use</h4><p>The terms that govern your use of the BeyondA1C website.</p></div>
+      <div class="privacy-nav-card"><div class="pnc-icon">🏥</div><h4>HIPAA Notice</h4><p>Your rights regarding health information we may receive through clinical or research partnerships.</p></div>
+      <div class="privacy-nav-card"><div class="pnc-icon">🍪</div><h4>Cookie Policy</h4><p>What cookies we use, why we use them, and how you can manage your preferences.</p></div>
+      <div class="privacy-nav-card"><div class="pnc-icon">⚖️</div><h4>Your Data Rights</h4><p>How to access, correct, or request deletion of your personal information, including California CCPA rights.</p></div>
+      <div class="privacy-nav-card"><div class="pnc-icon">✉️</div><h4>Contact Privacy Team</h4><p>Submit a privacy request, ask a question, or report a concern directly to our privacy team.</p></div>
+    </div>
+
+    <!-- Privacy Policy -->
+    <div class="policy-section">
+      <div class="policy-meta">Privacy Policy &nbsp;|&nbsp; Last updated: April 2025 &nbsp;|&nbsp; Effective: April 1, 2025</div>
+      <h3>🔒 How we handle your information</h3>
+      <h4>Who we are</h4>
+      <p>BeyondA1C is a program of the Boston Diabetes Research Institute, a division of MedicaMetrix, Inc. We operate the website at beyonda1c.com and related digital properties. This Privacy Policy describes how we collect, use, and protect information when you visit our website or interact with us.</p>
+      <h4>Information we collect</h4>
+      <ul>
+        <li><strong>Information you provide directly:</strong> When you fill out our provider inquiry form, send us an email, or request a consultation, we collect your name, organization, email address, phone number, and any other details you choose to share.</li>
+        <li><strong>Usage information:</strong> When you visit our website, we automatically collect technical information such as your IP address, browser type, pages visited, time spent on pages, referring URL, and device information.</li>
+        <li><strong>Communications:</strong> If you email us or correspond with us, we retain those communications to respond to your inquiry and improve our service.</li>
+      </ul>
+      <h4>How we use your information</h4>
+      <ul>
+        <li>To respond to your inquiry or consultation request</li>
+        <li>To provide information about BeyondA1C products and services</li>
+        <li>To send updates or educational content you have requested</li>
+        <li>To analyze website usage and improve the site experience</li>
+        <li>To comply with legal obligations and protect our website</li>
+      </ul>
+      <h4>How we share your information</h4>
+      <p>We do not sell your personal information. We may share information with service providers, MedicaMetrix affiliates, or as required by law. In the event of a merger or acquisition, information may be transferred as part of that transaction.</p>
+      <h4>Data retention</h4>
+      <p>We retain personal information for as long as necessary to fulfill the purposes described in this policy. Inquiry and contact form submissions are typically retained for up to three years. Website analytics data is retained in aggregated form.</p>
+      <h4>Security</h4>
+      <p>We use industry-standard technical and organizational measures to protect your information, including encrypted data transmission (HTTPS), access controls, and regular security reviews. No method of transmission over the internet is completely secure, and we cannot guarantee absolute security.</p>
+      <p><strong>Questions about this policy?</strong> Contact our privacy team at privacy@beyonda1c.com or write to us at Boston Diabetes Research Institute, 103 Fox Road, Suite 611, Waltham, MA 02451.</p>
+    </div>
+
+    <!-- Terms of Use -->
+    <div class="policy-section">
+      <div class="policy-meta">Terms of Use &nbsp;|&nbsp; Last updated: April 2025 &nbsp;|&nbsp; Effective: April 1, 2025</div>
+      <h3>📋 Terms governing use of this website</h3>
+      <h4>Acceptance of terms</h4>
+      <p>By accessing or using the BeyondA1C website (beyonda1c.com), you agree to be bound by these Terms of Use. These terms apply to all visitors, including healthcare providers, researchers, and members of the public.</p>
+      <h4>Purpose of this site</h4>
+      <p>This website is intended for informational and educational purposes only. Content on this site relates to the BeyondA1C point-of-care screening program and is directed primarily at healthcare providers and researchers. Nothing on this site constitutes medical advice, a diagnosis, or a treatment recommendation.</p>
+      <h4>Intellectual property</h4>
+      <p>All content on this website, including text, graphics, logos, images, and data, is the property of BeyondA1C, the Boston Diabetes Research Institute, or MedicaMetrix, Inc., or is used with permission. BeyondA1C® and DPNCheck® are registered trademarks.</p>
+      <h4>Clinical and scientific content</h4>
+      <p>We make reasonable efforts to ensure that clinical and scientific information on this site is accurate and up to date. Information on this site should not be used as a substitute for professional clinical judgment. Healthcare providers should exercise their own independent judgment when making clinical decisions.</p>
+      <h4>Governing law</h4>
+      <p>These terms are governed by the laws of the Commonwealth of Massachusetts. Any disputes shall be subject to the exclusive jurisdiction of the state and federal courts located in Middlesex County, Massachusetts.</p>
+      <p><strong>Questions about these terms?</strong> Contact us at legal@beyonda1c.com or Boston Diabetes Research Institute, 103 Fox Road, Suite 611, Waltham, MA 02451.</p>
+    </div>
+
+    <!-- HIPAA -->
+    <div class="policy-section">
+      <div class="policy-meta">HIPAA Notice of Privacy Practices &nbsp;|&nbsp; Last updated: April 2025</div>
+      <h3>🏥 Notice of Privacy Practices</h3>
+      <p><strong>Important:</strong> This notice applies to situations where BeyondA1C or MedicaMetrix receives protected health information (PHI) as a business associate of a covered healthcare entity. The BeyondA1C website itself does not collect health information from individual patients.</p>
+      <h4>Our role under HIPAA</h4>
+      <p>BeyondA1C and MedicaMetrix may function as a Business Associate under HIPAA when we provide services to covered healthcare entities, such as hospitals, clinics, or physician practices.</p>
+      <h4>How we use and disclose PHI</h4>
+      <p>As a business associate, we may use PHI only to perform our contracted services. We do not sell PHI. We implement administrative, physical, and technical safeguards to protect PHI from unauthorized access, use, or disclosure.</p>
+      <h4>Your rights</h4>
+      <p>Your rights regarding your health information are primarily managed by your healthcare provider. If you believe your privacy rights have been violated, you may contact us or file a complaint with the U.S. Department of Health and Human Services Office for Civil Rights at hhs.gov/ocr.</p>
+      <p><strong>Contact:</strong> privacy@beyonda1c.com</p>
+    </div>
+
+    <!-- Cookies -->
+    <div class="policy-section">
+      <div class="policy-meta">Cookie Policy &nbsp;|&nbsp; Last updated: April 2025</div>
+      <h3>🍪 How we use cookies</h3>
+      <h4>What we use</h4>
+      <ul>
+        <li><strong>Essential cookies:</strong> Required for the website to function. Enable basic navigation, form submission, and security features.</li>
+        <li><strong>Analytics cookies:</strong> We use tools such as Google Analytics to understand how visitors use our site. Data is aggregated and anonymized.</li>
+        <li><strong>Preference cookies:</strong> Used to remember settings or choices you make on the site.</li>
+      </ul>
+      <p>We do not use advertising cookies or third-party tracking for retargeting purposes.</p>
+      <h4>Managing cookies</h4>
+      <p>Most browsers allow you to refuse or delete cookies through their settings. Disabling cookies may limit some website functionality.</p>
+    </div>
+
+    <!-- Data Rights -->
+    <div class="policy-section">
+      <div class="policy-meta">Your Data Rights &nbsp;|&nbsp; Last updated: April 2025</div>
+      <h3>⚖️ Access, correction, and deletion</h3>
+      <h4>Your general rights</h4>
+      <ul>
+        <li><strong>Access:</strong> You may request a copy of the personal information we hold about you.</li>
+        <li><strong>Correction:</strong> You may request that we correct inaccurate or incomplete information.</li>
+        <li><strong>Deletion:</strong> You may request that we delete your personal information, subject to legal retention requirements.</li>
+        <li><strong>Opt-out:</strong> You may opt out of receiving marketing communications at any time.</li>
+      </ul>
+      <h4>California residents (CCPA/CPRA)</h4>
+      <p>If you are a California resident, you have additional rights under CCPA and CPRA, including the right to know, delete, correct, opt out, and non-discrimination. We do not sell personal information. To exercise any of these rights, contact us at privacy@beyonda1c.com. We will respond within 45 days of receiving a verifiable request.</p>
+      <h4>How to submit a request</h4>
+      <p>Email privacy@beyonda1c.com with the subject line "Data Rights Request" and include your name, email address, the nature of your request, and your state of residence.</p>
+    </div>
+
+    <!-- Contact -->
+    <div class="policy-section">
+      <h3>✉️ Contact our privacy team</h3>
+      <p style="color:var(--teal); font-size:12px; margin-bottom:16px">We typically respond within 2 business days.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px">
+        <div>
+          <h4>Privacy inquiries</h4>
+          <p>privacy@beyonda1c.com<br>Subject: "Data Rights Request" or "HIPAA Privacy Concern"</p>
+          <h4 style="margin-top:14px">Legal and terms inquiries</h4>
+          <p>legal@beyonda1c.com</p>
+        </div>
+        <div>
+          <h4>Mailing address</h4>
+          <p>Boston Diabetes Research Institute<br>A Division of MedicaMetrix<br>103 Fox Road, Suite 611<br>Waltham, MA 02451 USA</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- REGULATORY DISCLAIMER -->
+<div style="background:#FFF7ED; border-top:3px solid #C2410C; padding:20px 40px; font-size:12px; color:#5A4010; line-height:1.7;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <strong style="color:#C2410C; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">Regulatory Notice</strong>
+    <p style="margin-top:8px">DPNCheck® is FDA-cleared for the measurement of sural nerve conduction velocity and sensory nerve action potential amplitude (FDA Class II, 21 CFR 882.1850). BeyondA1C is a screening program developed by the Boston Diabetes Research Institute, a division of MedicaMetrix, Inc. The BeyondA1C composite risk profile is generated using DPNCheck and BDRI's proprietary algorithm and is based on BDRI clinical research. BeyondA1C does not constitute a separate FDA-cleared diagnostic test for diabetic retinopathy, nephropathy, or cardiovascular autonomic neuropathy. Associations between DPNCheck-measured sural nerve function and microvascular complication risk reflect published research findings and should not be interpreted as cleared indications for use.</p>
+    <p style="margin-top:6px">BeyondA1C is intended for use by or under the direction of a licensed healthcare provider. Results should be interpreted in the context of the patient's full clinical picture. This website does not constitute medical advice.</p>
+    <p style="margin-top:6px; font-size:11px; color:#7A5010;">Document Reference: FTP-BDRI-2026-04-12-E &nbsp;|&nbsp; Version: v8 &nbsp;|&nbsp; Effective Date: [PENDING SIGN-OFF] &nbsp;|&nbsp; Sign-offs required: RA / Medical / Legal</p>
+  </div>
+</div>
+
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Beyond<span>A1C</span></div>
+      <div class="footer-copy" style="margin-top:4px">© 2025 BeyondA1C, Boston Diabetes Research Institute, a Division of MedicaMetrix. All rights reserved.</div>
+    </div>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('home')">Main Site</a>
+      <a href="#" onclick="showPage('refs')">Clinical Publications</a>
+      <a href="#" onclick="showPage('privacy')">Privacy</a>
+      <a href="https://portal.beyonda1c.com" target="_blank">Portal Login</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+  return false;
+}
+</script>
+</body>
+</html>

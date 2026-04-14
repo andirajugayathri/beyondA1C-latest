@@ -51,7 +51,7 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 5vw
+      /* padding: 0 5vw */
     }
 
     .eyebrow {
@@ -268,7 +268,7 @@
       line-height: 1.82;
       font-weight: 300;
       max-width: 460px;
-      margin-bottom: 44px
+      /* margin-bottom: 44px */
     }
 
     .hero-actions {
@@ -1000,7 +1000,7 @@
 
     .how-metrics {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 22px;
       margin-top: 44px
     }
@@ -1169,13 +1169,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
-      align-items: end;
-      margin-bottom: 56px
+      /* align-items: end;
+      margin-bottom: 56px */
     }
 
     .ev-hl {
       font-size: clamp(2rem, 3vw, 2.6rem);
-      color: var(--ink)
+      color: var(--ink);
     }
 
     .ev-right {
@@ -1222,7 +1222,7 @@
     }
 
     .ev-link-wrap {
-      margin-bottom: 40px
+      margin: 40px 0;
     }
 
     .ev-dl-link {
@@ -1521,7 +1521,7 @@
 
     .pat-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 72px;
       align-items: center
     }
@@ -1970,7 +1970,7 @@
     /* ── CTA BAND ── */
     .cta-band {
       background: var(--offwhite);
-      padding-bottom: 60px;
+      padding: 60px 0;
       /* padding:clamp(80px,10vw,120px) 5vw; */
       text-align: center
     }
@@ -2260,7 +2260,7 @@
 
     @media(max-width:768px) {
       :root {
-        --gap: 64px
+        --gap: 40px
       }
 
       .nav-links {
@@ -2350,7 +2350,19 @@
         ;
         padding-left: 0px !important;
       }
+      .discovery-card {
+        height: auto;
+        margin-bottom: 20px;
+      }
+      .ev-hl {
+       margin-bottom: 0;
+     }
     }
+
+    .discovery-card{
+      height: 500px;
+    }
+   
   </style>
 </head>
 
@@ -2368,10 +2380,10 @@
       <li><a href="#complications">Complications</a></li>
       <li><a href="#evidence">Publications</a></li>
       <li><a href="#patients">For Patients</a></li>
-      <li><a href="#about">About</a></li>
+      <!-- <li><a href="#about">About</a></li> -->
     </ul>
     <div class="nav-ctas">
-      <a href="#providers" class="cta-nav">Get Started</a>
+      <!-- <a href="#providers" class="cta-nav">Get Started</a> -->
       <a href="https://portal.beyonda1c.com" target="_blank" rel="noopener" class="portal-nav">BeyondA1C Portal
         Login</a>
     </div>
@@ -2386,17 +2398,15 @@
       <div class="hero-left">
         <span class="eyebrow">Boston Diabetes Research Institute</span>
         <h1 class="hero-hl display">
-          A breakthrough in screening for <em>diabetic microvascular complications</em>
+          A point-of-care screening program for detecting <em>diabetic peripheral neuropathy and associated microvascular complication risk</em>
         </h1>
         <p class="hero-body">
-          Developed by the Boston Diabetes Research Institute, BeyondA1C is the first screening test built on the
-          discovery that peripheral neuropathy is a sentinel marker for all diabetic microvascular complications. It
-          catches what A1C alone cannot.
+          Developed by the Boston Diabetes Research Institute, BeyondA1C is a screening program built on BDRI's research showing that peripheral neuropathy is a sentinel marker for diabetic microvascular complications, including neuropathy, retinopathy, and nephropathy. BeyondA1C uses DPNCheck® (FDA-cleared for sural nerve conduction measurement) and BDRI's proprietary algorithm to generate a composite risk profile.
         </p>
-        <div class="hero-actions">
+        <!-- <div class="hero-actions">
           <a href="#providers" class="btn-teal">Partner With Us</a>
           <a href="#how" class="btn-link">See how it works →</a>
-        </div>
+        </div> -->
         <div class="hero-trust">
           <div class="trust-item">
             <div class="trust-icon">🔬</div>
@@ -2416,7 +2426,14 @@
             <div class="trust-icon">📋</div>
             <div>
               <div class="trust-val">35+ Studies</div>
-              <div class="trust-label">Peer-reviewed validation</div>
+              <div class="trust-label">Peer-reviewed publications in indexed journals</div>
+            </div>
+          </div>
+           <div class="trust-item">
+            <div class="trust-icon">⏱️</div>
+            <div>
+              <div class="trust-val">&lt; 1 min</div>
+              <div class="trust-label">Results in under one minute at point of care</div>
             </div>
           </div>
         </div>
@@ -2435,8 +2452,7 @@
         </div>
         <div class="hero-card">
           <div class="hc-lbl">BeyondA1C Composite Microvascular Score</div>
-          <div style="font-size:.6rem;color:rgba(255,255,255,.28);margin-top:-10px;margin-bottom:12px">Score ranges from
-            0 to 12</div>
+          <div style="font-size:.6rem;color:rgba(255,255,255,.28);margin-top:-10px;margin-bottom:12px">Score ranges from 0 to 12. Results are color-coded by severity and downloadable for EHR upload.</div>
 
           <!-- Linear gradient risk bar -->
           <div style="position:relative;margin-bottom:6px">
@@ -2501,7 +2517,7 @@
       <!-- Section header -->
       <div class="reveal" style="text-align:center;max-width:680px;margin:0 auto 72px">
         <span class="eyebrow">The BDRI Breakthrough</span>
-        <h2 class="mission-hl display">Three discoveries. One transformative screening test.</h2>
+        <h2 class="mission-hl display">Three discoveries. One screening program</h2>
         <p class="mission-body" style="margin-top:16px">For years, the team at the Boston Diabetes Research Institute
           has been asking a hard question: why do so many patients develop devastating complications even when their
           diabetes appears well controlled? That work led to three connected discoveries that form the scientific
@@ -2529,7 +2545,7 @@
                 in a patient's tissues.</p>
 
               <!-- Mini visual: two-row comparison -->
-              <div style="background:white;border-radius:10px;border:1px solid var(--rule);overflow:hidden">
+              <!-- <div style="background:white;border-radius:10px;border:1px solid var(--rule);overflow:hidden">
                 <div style="display:grid;grid-template-columns:1fr 1fr">
                   <div style="padding:16px 18px;border-right:1px solid var(--rule)">
                     <div
@@ -2576,7 +2592,7 @@
                   style="padding:12px 18px;background:var(--offwhite);border-top:1px solid var(--rule);font-size:.76rem;color:var(--muted)">
                   Over ⅓ of amputations occur in patients with A1C below 7%
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -2615,12 +2631,10 @@
             <h3
               style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--ink);line-height:1.2;margin-bottom:14px">
               Neuropathy is the sentinel</h3>
-            <p style="font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:28px">Nerve dysfunction tends to
-              appear first, and it independently predicts retinopathy, nephropathy, and cardiovascular autonomic
-              neuropathy across all types of microvascular disease.</p>
+            <p style="font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:28px">BDRI's research establishes that nerve dysfunction tends to appear first. Peripheral neuropathy is an independent predictor of microvascular complications, including retinopathy, nephropathy, and cardiovascular autonomic neuropathy, in diabetic patients (Vinik AI et al. Endocrinol Metab Clin North Am. 2004;33(2):405–415). BeyondA1C uses DPNCheck® and BDRI's algorithm to generate a composite risk profile across these complication domains.</p>
 
             <!-- Mini visual: cascade diagram -->
-            <div style="background:white;border-radius:12px;padding:20px;border:1px solid var(--rule)">
+            <!-- <div style="background:white;border-radius:12px;padding:20px;border:1px solid var(--rule)">
               <div
                 style="font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">
                 The microvascular cascade</div>
@@ -2651,7 +2665,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <!-- Arrow -->
@@ -2693,11 +2707,10 @@
               style="font-family:'Playfair Display',serif;font-size:1.25rem;color:white;line-height:1.2;margin-bottom:14px;position:relative">
               BeyondA1C is born</h3>
             <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:28px;position:relative">
-              A point-of-care screening test with an evolving algorithm that uses sural nerve function data to screen
-              for the full spectrum of microvascular complications.</p>
+              A point-of-care screening program using DPNCheck® (FDA-cleared for sural nerve conduction measurement) and BDRI's proprietary algorithm to generate a composite risk profile across neuropathy, retinopathy, and nephropathy.</p>
 
             <!-- Mini visual: linear risk index -->
-            <div
+            <!-- <div
               style="background:rgba(255,255,255,.07);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,.1);position:relative">
               <div
                 style="font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px">
@@ -2705,7 +2718,6 @@
               <div style="font-size:.6rem;color:rgba(255,255,255,.28);margin-bottom:12px">Score ranges from 0 to 12
               </div>
 
-              <!-- Linear risk bar -->
               <div style="position:relative;margin-bottom:5px">
                 <div style="height:8px;border-radius:4px;overflow:hidden;display:flex">
                   <div style="flex:3;background:#7bc67e"></div>
@@ -2734,7 +2746,7 @@
 
               <div style="margin-top:10px;font-size:.68rem;color:rgba(255,255,255,.3)">Results in under one minute at
                 point of care</div>
-            </div>
+            </div> -->
           </div>
 
         </div>
@@ -2762,7 +2774,7 @@
             3×</div>
           <div style="font-size:.85rem;color:var(--muted);line-height:1.55">more asymptomatic cases detected by nerve
             conduction studies vs. monofilament testing</div>
-          <div class="hm-src">(Lee JA et al., PLoS One 2014;9:e86515)</div>
+          <div class="hm-src"> (Perkins BA et al. Diabetes Care. 2001;24(2):250–256)</div>
         </div>
       </div>
 
@@ -2775,9 +2787,9 @@
     <div class="prob-inner container">
       <div class="prob-hd reveal">
         <span class="eyebrow" style="color:rgba(75,166,237,.85)">BDRI Finding 01</span>
-        <h2 class="prob-hl display">A1C measures average glucose. It cannot reveal what is happening to your patients'
-          nerves, eyes, and kidneys.</h2>
-        <p class="prob-lead">BDRI's first breakthrough was documenting the specific ways A1C fails as a standalone
+        <h2 class="prob-hl display">A1C measures average glucose. It does not measure nerve conduction, retinal vascular integrity, or kidney filtration.</h2>
+        <p class="prob-lead">BDRI's first key finding was documenting the specific 
+         ways A1C fails as a standalone
           measure of diabetic complication risk.</p>
       </div>
       <div class="prob-cards">
@@ -2793,9 +2805,7 @@
           <div class="pc-n">Limitation 02</div>
           <div class="pc-t">Good A1C does not mean no complications</div>
        
-          <p class="pc-b">A province-wide study from Alberta Health Services found that <strong>over one-third of foot
-              ulcer and amputation patients</strong> had an A1C below 7%, clinically considered good control. Glycemic
-            control matters, but it does not predict who develops tissue damage.</p>
+          <p class="pc-b">Glycemic control alone does not fully capture risk for diabetic foot complications. Even patients with A1C levels considered well-controlled remain vulnerable to ulceration and amputation due to factors such as neuropathy, microvascular disease, and cumulative glycemic exposure. (Journal of Diabetes and its Complications, 2020;34(10):107638.)</p>
              <!-- PENDING VERIFICATION — DO NOT PUBLISH -->
             <!-- <div class="pc-ft">↗ Source: Alberta Health Services Diabetes Foot Care Pathway, 2016</div>
           -->
@@ -2803,12 +2813,9 @@
         <div class="pc reveal d3">
           <div class="pc-n">Limitation 03</div>
           <div class="pc-t">A1C does not screen for microvascular damage</div>
-          <p class="pc-b">A1C reflects glycated hemoglobin. It does not measure nerve conduction, retinal vascular
-            integrity, or kidney filtration. Those are separate biological processes that need direct measurement.
-            <strong>Relying on A1C alone leaves the most important window for early intervention completely
-              dark.</strong>
+          <p class="pc-b">A1C reflects glycated hemoglobin. It does not measure nerve conduction, retinal vascular integrity, or kidney filtration. Those are separate biological processes that need direct measurement. Relying on A1C alone leaves the most important window for early intervention completely dark.
           </p>
-          <div class="pc-ft">↗ Late-detected complications cost $20,000–$80,000 per case</div>
+          <div class="pc-ft">↗ Annual cost of diabetic peripheral neuropathy and its complications: $10.9 billion (US) (Gordois A et al. Diabetes Care. 2003;26(6):1790–1795. DOI: 10.2337/diacare.26.6.1790). Lifetime cost of treating Type 2 Diabetes complications: ~$47,240 average per patient (complications portion) (O'Brien JA et al. Am J Health Syst Pharm. 2003;60(22):2324–2329. DOI: 10.1093/ajhp/60.22.2324).</div>
         </div>
       </div>
     </div>
@@ -2823,11 +2830,7 @@
           <h2 class="how-hl display">Peripheral neuropathy as a sentinel marker. Screened at the point of care.</h2>
         </div>
         <div class="reveal d1">
-          <p class="how-lead">BDRI's second key finding was that diabetic peripheral neuropathy is not just one
-            complication among many. It is a sentinel marker: the first sign of a broader microvascular process that,
-            left undetected, leads to retinopathy, nephropathy, and heart disease. BeyondA1C was built on that insight.
-            Its evolving algorithm uses sural nerve function data to screen for the full range of microvascular
-            complications in a single brief in-office test. No specialist training needed. Results in under one minute.
+          <p class="how-lead">BDRI's second key finding was that diabetic peripheral neuropathy is not just one complication among many. It is a sentinel marker: the first sign of a broader microvascular process that, left undetected, leads to retinopathy, nephropathy, and cardiovascular autonomic neuropathy (Vinik AI et al. Endocrinol Metab Clin North Am. 2004). BeyondA1C was built on that insight. No specialist training needed. Results in under one minute.
           </p>
         </div>
       </div>
@@ -2879,29 +2882,29 @@
           <div class="hm-v">54%</div>
           <div class="hm-l">
             Asymptomatic neuropathy detection rate via nerve conduction study compared to 17% for monofilament testing
-            <div class="hm-src">(Lee JA et al., PLoS One 2014;9:e86515)</div>
+            <div class="hm-src"> (Perkins BA et al. Diabetes Care. 2001;24(2):250–256)</div>
           </div>
         </div>
         <div class="hm">
           <div class="hm-v">95%</div>
           <div class="hm-l">Sensitivity vs. reference standard nerve conduction studies</div>
-          <div class="hm-src">Lee JA et al., PLoS One 2014;9:e86515.</div>
+          <div class="hm-src"> (Perkins BA et al. Diabetes Care. 2006;29(9):2023–2027)</div>
         </div>
         <div class="hm">
           <div class="hm-v">0.88</div>
           <div class="hm-l">Area under the curve for diagnostic accuracy in diabetic polyneuropathy</div>
-          <div class="hm-src">Hayashi et al., JDI 2024</div>
+          <div class="hm-src">(Hirayasu et al. J Diabetes Investig. 2018;9:1173–1181)</div>
         </div>
-        <div class="hm">
+        <!-- <div class="hm">
           <div class="hm-v">&lt;1 min</div>
           <div class="hm-l">Time to actionable, color-coded results at the point of care</div>
           <div class="hm-src">Both feet tested in under one minute</div>
-        </div>
+        </div> -->
       </div>
 
       <!-- Risk tier table -->
-      <p style="font-size:.95rem;color:var(--muted);margin-top:40px;text-align:center;font-style:italic">Results are
-        displayed on the BeyondA1C Composite Score scale — see above for risk tier definitions.</p>
+      <!-- <p style="font-size:.95rem;color:var(--muted);margin-top:40px;text-align:center;font-style:italic">Results are
+        displayed on the BeyondA1C Composite Score scale — see above for risk tier definitions.</p> -->
     </div>
   </section>
 
@@ -2910,11 +2913,8 @@
     <div class="comp-inner container">
       <div class="comp-hd reveal">
         <span class="eyebrow">BDRI Finding 02 / The Sentinel Marker</span>
-        <h2 class="comp-hl display">One marker. A window into the full spectrum of microvascular disease.</h2>
-        <p class="comp-lead">BDRI's research showed that diabetic peripheral neuropathy shares its root causes with
-          retinopathy, nephropathy, and cardiovascular autonomic neuropathy: oxidative stress, endothelial dysfunction,
-          and chronic inflammation. That is why nerve function data is not just a neuropathy screen. It is a window into
-          the health of the entire microvascular system.</p>
+        <h2 class="comp-hl display">One marker. A window into neuropathy, retinopathy, and nephropathy risk.</h2>
+        <p class="comp-lead">BDRI's research showed that diabetic peripheral neuropathy shares its root causes with retinopathy, nephropathy, and cardiovascular autonomic neuropathy: oxidative stress, endothelial dysfunction, and chronic inflammation. That is why nerve function data is not just a neuropathy screen; it provides a composite risk signal across neuropathy, retinopathy, and nephropathy.</p>
       </div>
       <div class="comp-grid">
         <div class="comp-card reveal d1">
@@ -2923,9 +2923,7 @@
           </div>
           <div class="comp-body">
             <div class="comp-t">Diabetic Peripheral Neuropathy</div>
-            <div class="comp-d">Peripheral neuropathy affects around 50% of people with diabetes. BeyondA1C measures
-              sural nerve conduction directly at the point of care in under two minutes, finding asymptomatic cases
-              roughly three times more often than traditional monofilament testing.</div>
+            <div class="comp-d">BeyondA1C measures sural nerve conduction directly at the point of care in under two minutes, finding asymptomatic cases roughly three times more often than traditional monofilament testing.</div>
             <div class="comp-stat">
               <div class="cs-v">~50%</div>
               <div class="cs-l">of people with diabetes develop peripheral neuropathy over time</div>
@@ -2938,9 +2936,7 @@
           </div>
           <div class="comp-body">
             <div class="comp-t">Vision-Threatening Retinopathy</div>
-            <div class="comp-d">BeyondA1C results are a strong, independent predictor of retinopathy severity. In a
-              prospective study, peripheral neuropathy was the only significant independent predictor of progression to
-              vision-threatening retinopathy. A1C, on its own, was not.</div>
+            <div class="comp-d">Peripheral neuropathy is associated with both the presence and increasing severity of diabetic retinopathy, reflecting shared microvascular pathology rather than a singular causal pathway (Feldman EL et al. Lancet Diabetes Endocrinol. 2019;7(12):938–948. DOI: 10.1016/S2213-8587(19)30059-6). Population studies demonstrate that retinopathy is significantly more common in patients with peripheral neuropathy, with several-fold higher prevalence compared to those without neuropathy (Ponirakis G et al. BMJ Open Diabetes Res Care. 2020;8(1):e001014. DOI: 10.1136/bmjdrc-2019-001014; Raman R et al. SAGE Open Med. 2022;10:20503121221099946. DOI: 10.1177/20503121221099946). Cross-sectional and mechanistic data show that neuropathy severity tracks with retinopathy severity, with markedly higher neuropathy prevalence in advanced retinopathy stages (Tesfaye S et al. Diabetes Care. 2010;33(10):2285–2293. DOI: 10.2337/dc10-1303). Emerging mechanistic and imaging data confirm that neural injury and retinal microvascular damage are biologically linked, sharing common pathways including microvascular ischemia and neurodegeneration (Feldman EL et al. 2019). This association reflects BDRI research findings and does not constitute a cleared indication for retinopathy screening.</div>
             <!-- PENDING VERIFICATION — DO NOT PUBLISH -->
             <!--
             <div class="comp-stat">
@@ -2957,14 +2953,10 @@
           </div>
           <div class="comp-body">
             <div class="comp-t">Diabetic Nephropathy</div>
-            <div class="comp-d">BeyondA1C-detected neuropathy is significantly associated with elevated urinary albumin,
-              an early marker of kidney damage, and with faster decline in renal function. Traditional screening methods
-              showed no such predictive advantage. Catching it early may identify patients heading toward end-stage
-              kidney disease years before other tests would signal anything.</div>
+            <div class="comp-d">Decline in kidney function in diabetes is not uniformly accompanied by albuminuria. Contemporary guidelines and epidemiologic studies recognize a non-albuminuric phenotype of diabetic kidney disease, in which significant eGFR loss occurs despite normal or minimally elevated albumin excretion. BeyondA1C-measured peripheral neuropathy provides an additional marker of systemic microvascular injury that may help identify patients at risk for kidney function decline, including those who would not be flagged by albuminuria alone. This association reflects BDRI research findings and does not constitute a cleared indication for nephropathy screening.</div>
             <div class="comp-stat">
-              <div class="cs-v">Independent</div>
-              <div class="cs-l">predictor of accelerated kidney decline even after adjusting for albuminuria (Fukuda et
-                al., 2025)</div>
+              <div class="cs-v">Sources</div>
+              <div class="cs-l">KDIGO 2022 Clinical Practice Guideline for Diabetes Management in CKD. Kidney Int. 2022;102(5S):S1–S127; Selvarajah S et al. JAMA Netw Open. 2020;3(10):e2025497</div>
             </div>
           </div>
         </div>
@@ -2985,10 +2977,10 @@
             <div class="ev-badges">
               <div class="badge">✓ Uses FDA Cleared Device</div>
               <div class="badge">📖 35+ Studies</div>
-              <div class="badge">🧑‍⚕️ 2M+ Patients Screened in Clinical and Commercial Use
-                <div style="font-size:.65rem;margin-top:4px;color:var(--muted)">Represents
-                  cumulative commercial deployment of the DPNCheck device.</div>
+              <div class="badge">🧑‍⚕️ 2M+ Patients Screened
               </div>
+              <div style="font-size:.65rem;margin-top:4px;color:var(--muted)">2M+ Represents
+                  cumulative commercial deployment of the DPNCheck device.</div>
             </div>
             <div class="ev-nums">
               <div>
@@ -3011,7 +3003,7 @@
         </a>
       </div>
 
-      <div class="pubs-section-title reveal">BDRI Finding 01: A1C Limitations, A1C Variability, and Glycemic Control
+      <!-- <div class="pubs-section-title reveal">BDRI Finding 01: A1C Limitations, A1C Variability, and Glycemic Control
         in Neuropathy</div>
       <p class="section-lead reveal" style="margin-bottom:40px;font-size:.95rem">These studies form the scientific
         foundation of BDRI's first discovery: that A1C is a necessary but insufficient measure of diabetic
@@ -3361,7 +3353,7 @@
               PubMed →</a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -3371,10 +3363,8 @@
       <div class="why-layout">
         <div class="reveal">
           <span class="eyebrow">BDRI Finding 03 / The Innovation</span>
-          <h2 class="why-hl display">BeyondA1C: the screening test A1C was never designed to be.</h2>
-          <p class="why-lead">BeyondA1C is built on BDRI's evolving algorithm, which processes sural nerve function data
-            to generate a risk profile across neuropathy, retinopathy, and nephropathy. It does not replace A1C. It
-            gives clinicians the picture A1C was never designed to provide.</p>
+          <h2 class="why-hl display">How BeyondA1C and A1C differ in scope</h2>
+          <p class="why-lead">BeyondA1C is built on BDRI's research using DPNCheck® (FDA-cleared for sural nerve conduction measurement) and a proprietary algorithm to generate a composite risk profile. A1C measures average glucose; BeyondA1C measures sural nerve function. The two tests address different physiological domains. BeyondA1C does not replace A1C.</p>
           <div class="ctable">
             <div class="cth">
               <div class="cth-c">Capability</div>
@@ -3387,24 +3377,24 @@
               <div class="ctc yes hicol">✓</div>
             </div>
             <div class="ctr">
-              <div class="ctc">Predicts retinopathy risk</div>
-              <div class="ctc no">✗</div>
-              <div class="ctc yes hicol">✓</div>
+              <div class="ctc">Associated with retinopathy risk in BDRI studies</div>
+              <div class="ctc no">—</div>
+              <div class="ctc yes hicol">✓ (research)</div>
             </div>
             <div class="ctr">
               <div class="ctc">Asymptomatic case detection</div>
-              <div class="ctc" style="color:var(--muted)">Limited</div>
+              <div class="ctc no">Limited</div>
               <div class="ctc yes hicol">3× more</div>
             </div>
             <div class="ctr">
-              <div class="ctc">Predicts nephropathy progression</div>
-              <div class="ctc no">✗</div>
-              <div class="ctc yes hicol">✓</div>
+              <div class="ctc">Associated with nephropathy progression in BDRI studies</div>
+              <div class="ctc no">—</div>
+              <div class="ctc yes hicol">✓ (research)</div>
             </div>
             <div class="ctr">
-              <div class="ctc">Independent mortality predictor</div>
-              <div class="ctc no">✗</div>
-              <div class="ctc yes hicol">✓</div>
+              <div class="ctc">Mortality association (DPNCheck + SUDOSCAN combined; Sloan et al. 2023)</div>
+              <div class="ctc no">—</div>
+              <div class="ctc yes hicol">✓ (research)</div>
             </div>
             <div class="ctr">
               <div class="ctc">Point-of-care, no referral needed</div>
@@ -3412,9 +3402,9 @@
               <div class="ctc yes hicol">✓</div>
             </div>
             <div class="ctr">
-              <div class="ctc">Detects risk in well-controlled patients</div>
-              <div class="ctc no">✗</div>
-              <div class="ctc yes hicol">✓</div>
+              <div class="ctc">Detects neuropathy risk across A1C levels, including below 7% (J Diabetes Complications. 2020;34(10):107638)</div>
+              <div class="ctc no">—</div>
+              <div class="ctc yes hicol">✓ (research)</div>
             </div>
           </div>
         </div>
@@ -3423,44 +3413,38 @@
             <div class="wf-ico">🔬</div>
             <div>
               <div class="wf-t">Built on BDRI's sentinel marker discovery</div>
-              <div class="wf-b">BDRI's research showed that peripheral neuropathy independently predicts retinopathy,
-                nephropathy, and cardiovascular autonomic neuropathy. BeyondA1C turns that discovery into a practical,
-                in-office test.</div>
+              <div class="wf-b">BDRI's research establishes peripheral neuropathy as an independent predictor of microvascular complications in diabetic patients, including retinopathy, nephropathy, and cardiovascular autonomic neuropathy. BeyondA1C translates that finding into a practical, in-office composite risk profile.</div>
             </div>
           </div>
           <div class="wf">
             <div class="wf-ico">🧠</div>
             <div>
-              <div class="wf-t">Powered by an evolving algorithm</div>
-              <div class="wf-b">BeyondA1C does not just produce a nerve score. BDRI's algorithm processes sural nerve
-                function data to generate a risk profile across multiple complications, and it gets more refined as
-                clinical evidence builds.</div>
+              <div class="wf-t">BDRI proprietary algorithm</div>
+              <div class="wf-b">BeyondA1C uses BDRI's proprietary algorithm to process sural nerve conduction data from DPNCheck® (FDA-cleared) and generate a composite risk profile. Algorithm updates are subject to regulatory review; consult your legal and regulatory team before publishing claims about algorithm refinements.</div>
             </div>
           </div>
           <div class="wf">
             <div class="wf-ico">🎯</div>
             <div>
-              <div class="wf-t">One test, three complication risks</div>
-              <div class="wf-b">One brief, automated test gives objective risk signals for neuropathy,
-                vision-threatening retinopathy, and nephropathy, all from a single in-office visit.</div>
+              <div class="wf-t">One test, three complication domains</div>
+              <div class="wf-b">One brief, automated test generates a composite risk profile that, in BDRI studies, is associated with neuropathy, retinopathy, and nephropathy outcomes — all from a single in-office visit.</div>
             </div>
           </div>
           <div class="wf">
             <div class="wf-ico">🏥</div>
             <div>
               <div class="wf-t">True point-of-care, no referral required</div>
-              <div class="wf-b">Results in under one minute, color-coded by severity. No large equipment, no specialist
-                training. Any primary care, endocrinology, or podiatry clinic can start offering this today.</div>
+              <div class="wf-b">Results in under one minute, color-coded by severity. No large equipment, no specialist training. Any primary care, endocrinology, or podiatry clinic can start offering this today.</div>
             </div>
           </div>
-          <div class="wf">
+          <!-- <div class="wf">
             <div class="wf-ico">📈</div>
             <div>
               <div class="wf-t">Earlier detection, meaningful outcomes</div>
               <div class="wf-b">Catching complications earlier means fewer amputations, fewer dialysis admissions, and
                 fewer hospitalizations.</div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -3470,7 +3454,7 @@
   <section class="patients" id="patients">
     <div class="pat-inner container">
       <div class="pat-layout">
-        <div class="reveal">
+        <!-- <div class="reveal">
           <div class="pat-stat-big">
             <div class="psb-bg"></div>
             <div class="psb-ey">The asymptomatic gap</div>
@@ -3498,7 +3482,7 @@
               <div class="pm-l">higher fall and fracture risk in diabetic patients 65+</div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="reveal d1">
           <span class="eyebrow">For Patients</span>
           <h2 class="pat-hl display">Screening for complications before they become serious.</h2>
@@ -3515,20 +3499,14 @@
             <div class="faq-item">
               <div class="faq-q" onclick="toggleFaq(this)">Is the test painful or time-consuming? <span
                   class="faq-ico">+</span></div>
-              <div class="faq-a">Not at all. The full test takes under one minute. You might feel a brief, mild
-                tingling, a bit like when a foot falls asleep. Most patients are surprised by how quick it is, and there
-                is nothing you need to do beforehand.</div>
+              <div class="faq-a">Not at all. The full test takes under one minute. You might feel a brief, mild tingling, a bit like when a foot falls asleep. Most patients are surprised by how quick it is, and there is nothing you need to do beforehand.</div>
             </div>
             <div class="faq-item">
               <div class="faq-q" onclick="toggleFaq(this)">Can I have complications if my A1C is in a good range? <span
                   class="faq-ico">+</span></div>
-              <div class="faq-a">Yes, and that is exactly why BeyondA1C was developed. Research from Alberta Health
-                Services found that over one-third of patients who developed a foot ulcer or had an amputation had an
-                A1C below 7%, which is considered well-controlled. Managing blood glucose matters a great deal, but A1C
-                cannot tell your doctor whether your nerves, kidneys, or eyes are already being affected. BeyondA1C
-                addresses that gap.</div>
+              <div class="faq-a">Yes, and that is exactly why BeyondA1C was developed. Glycemic control alone does not fully capture risk for diabetic foot complications. Even patients with A1C levels below 7% remain vulnerable to ulceration and amputation due to factors such as neuropathy, microvascular disease, and cumulative glycemic exposure. (Journal of Diabetes and its Complications, Volume 34, Issue 10, October 2020, 107638.) Managing blood glucose matters a great deal, but A1C cannot tell your doctor whether your nerves, kidneys, or eyes are already being affected. BeyondA1C addresses that gap.</div>
             </div>
-            <div class="faq-item">
+            <!-- <div class="faq-item">
               <div class="faq-q" onclick="toggleFaq(this)">What happens if complications are found early? <span
                   class="faq-ico">+</span></div>
               <div class="faq-a">Finding complications early opens up real options: tighter glucose management,
@@ -3543,7 +3521,7 @@
                 blood pressure, or high cholesterol, take metformin (which can deplete B12 and contribute to
                 neuropathy), or have never had a neuropathy screening. Ask your primary care doctor, endocrinologist, or
                 podiatrist whether it is right for you.</div>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -3552,7 +3530,7 @@
   </section>
 
   <!-- ═══════ PROVIDERS ═══════ -->
-  <section class="providers" id="providers">
+  <!-- <section class="providers" id="providers">
     <div class="prov-inner">
       <div class="prov-layout container">
         <div class="reveal">
@@ -3606,7 +3584,6 @@
               </div>
             </div>
 
-            <!-- One-stop dashboard callout -->
             <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12)">
               <div
                 style="background:rgba(255,255,255,.1);padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08)">
@@ -3704,10 +3681,10 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- ═══════ ABOUT ═══════ -->
-  <section class="about" id="about">
+  <!-- <section class="about" id="about">
     <div class="about-inner container">
       <div class="about-layout">
         <div class="reveal">
@@ -3772,21 +3749,30 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- ═══════ CTA BAND ═══════ -->
   <section class="cta-band" id="contact">
     <div class="cta-inner reveal">
       <span class="eyebrow">Ready to Learn More?</span>
-      <h2 class="cta-hl display">BDRI research. <em>Applied at the point of care.</em></h2>
-      <p class="cta-sub">BeyondA1C brings years of Boston Diabetes Research Institute science into a practical in-office
-        screening test. Catch what A1C alone cannot detect.</p>
+      <h2 class="cta-hl display">Partner with <em>BeyondA1C.</em></h2>
+      <p class="cta-sub">Clinicians, health systems, and research partners welcome.</p>
       <div class="cta-btns">
-        <a href="#contact-form" class="btn-teal">Partner With Us</a>
-        <a href="#evidence" class="btn-outline-teal">View Publications</a>
+        <a href="#" class="btn-teal">Get Started</a>
+        <!-- <a href="#evidence" class="btn-outline-teal">View Publications</a> -->
       </div>
     </div>
+     <div style="background:#FFF7ED; border-top:3px solid #C2410C; padding:20px 40px; font-size:12px; color:#5A4010; line-height:1.7; margin-top: 40px;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <strong style="color:#C2410C; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">Regulatory Notice</strong>
+    <p style="margin-top:8px">DPNCheck® is FDA-cleared for the measurement of sural nerve conduction velocity and sensory nerve action potential amplitude (FDA Class II, 21 CFR 882.1850). BeyondA1C is a screening program developed by the Boston Diabetes Research Institute, a division of MedicaMetrix, Inc. The BeyondA1C composite risk profile is generated using DPNCheck and BDRI's proprietary algorithm and is based on BDRI clinical research. BeyondA1C does not constitute a separate FDA-cleared diagnostic test for diabetic retinopathy, nephropathy, or cardiovascular autonomic neuropathy. Associations between DPNCheck-measured sural nerve function and microvascular complication risk reflect published research findings and should not be interpreted as cleared indications for use.</p>
+    <p style="margin-top:6px">BeyondA1C is intended for use by or under the direction of a licensed healthcare provider. Results should be interpreted in the context of the patient's full clinical picture. This website does not constitute medical advice.</p>
+    <p style="margin-top:6px; font-size:11px; color:#7A5010;">Document Reference: FTP-BDRI-2026-04-12-E &nbsp;|&nbsp; Version: v8 &nbsp;|&nbsp; Effective Date: [PENDING SIGN-OFF] &nbsp;|&nbsp; Sign-offs required: RA / Medical / Legal</p>
+  </div>
+</div>
   </section>
+
+ 
 
   <!-- ═══════ FOOTER ═══════ -->
   <footer id="footer">
@@ -3815,7 +3801,6 @@
             <li><a href="#how">The Innovation</a></li>
             <li><a href="#complications">Neuropathy</a></li>
             <li><a href="#complications">Retinopathy Risk</a></li>
-            <li><a href="#complications">Nephropathy</a></li>
             <li><a href="#why">Why BeyondA1C</a></li>
           </ul>
         </div>
@@ -3825,16 +3810,16 @@
             <li><a href="#evidence">Clinical Publications</a></li>
             <li><a href="references.html">View All References</a></li>
             <li><a href="#how">How BeyondA1C Works</a></li>
-            <li><a href="#contact-form">Request a Consultation</a></li>
+            <!-- <li><a href="#contact-form">Request a Consultation</a></li> -->
           </ul>
         </div>
         <div>
           <div class="fch">Connect</div>
           <ul class="footer-links">
-            <li><a href="#providers">For Providers</a></li>
+            <!-- <li><a href="#providers">For Providers</a></li> -->
             <li><a href="#patients">For Patients</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#contact-form">Partner With Us</a></li>
+            <!-- <li><a href="#about">About Us</a></li> -->
+            <!-- <li><a href="#contact-form">Partner With Us</a></li> -->
             <li><a href="mailto:research@beyonda1c.com">Clinical Research</a></li>
             <li><a href="mailto:info@beyonda1c.com">Contact Us</a></li>
           </ul>
